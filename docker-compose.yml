@@ -47,6 +47,7 @@ services:
     build: web/
     command: >
       sh -c "python manage.py migrate &&
+             python manage.py createsuperuser --noinput;
              python manage.py runserver 0.0.0.0:8000"
     volumes:
       - ./web:/app
@@ -55,4 +56,5 @@ services:
     depends_on:
       db:
         condition: service_healthy
-    
+    env_file:
+      - .env
