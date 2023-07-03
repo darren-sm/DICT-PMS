@@ -3,6 +3,7 @@ version: '3'
 services:
   db:
     image: postgres:13
+    container_name: 'db'
     restart: always
     env_file:
       - .env
@@ -12,36 +13,46 @@ services:
       - ./data/postgres:/var/lib/postgresql/data
       - ./setup/init.sql:/docker-entrypoint-initdb.d/init.sql
       - ./setup/graduates.csv:/tmp/graduates.csv
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U group1 -d ilcdb"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
   
-  pgadmin:
-    image: dpage/pgadmin4
-    restart: always
-    ports:
-      - 5050:80
-    env_file:
-      - .env
-    volumes:
-      - ./data/pgadmin:/var/lib/pgadmin
-    depends_on:
-      - db
-    user: "1000"
+  # pgadmin:
+  #   image: dpage/pgadmin4
+  #   restart: always
+  #   ports:
+  #     - 5050:80
+  #   env_file:
+  #     - .env
+  #   volumes:
+  #     - ./data/pgadmin:/var/lib/pgadmin
+  #   depends_on:
+  #     - db
+  #   user: "1000"
 
-  grafana:
-    image: grafana/grafana:latest
-    restart: always
-    ports:
-      - 3000:3000
-    volumes:
-      - ./data/grafana:/var/lib/grafana
-    env_file:
-      - .env
-    user: "1000"
+  # grafana:
+  #   image: grafana/grafana:latest
+  #   restart: always
+  #   ports:
+  #     - 3000:3000
+  #   volumes:
+  #     - ./data/grafana:/var/lib/grafana
+  #   env_file:
+  #     - .env
+  #   user: "1000"
 
   system:
     build: web/
-    command: python manage.py runserver 0.0.0.0:8000
+    command: >
+      sh -c "python manage.py migrate &&
+             python manage.py runserver 0.0.0.0:8000"
     volumes:
-      - ./web:/code
+      - ./web:/app
     ports:
       - 8000:8000
+    depends_on:
+      db:
+        condition: service_healthy
     
