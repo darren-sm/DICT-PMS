@@ -28,3 +28,15 @@ def logout_user(request):
     logout(request)
     messages.success(request, "You have logged out")
     return redirect('login')
+
+def dashboard(request):
+    if request.user.is_authenticated:
+        return render(request, 'dashboard.html', {})
+    messages.error(request, "You have to log in first to access that")
+    return redirect('login')
+
+def report(request):
+    if request.user.is_authenticated:
+        return render(request, 'report.html', {})
+    messages.error(request, "You have to log in first to access that")
+    return redirect('login')
