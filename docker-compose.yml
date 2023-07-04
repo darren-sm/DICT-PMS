@@ -29,7 +29,8 @@ services:
     volumes:
       - ./data/pgadmin:/var/lib/pgadmin
     depends_on:
-      - db
+      db:
+        condition: service_healthy
     user: "1000"
 
   # grafana:
