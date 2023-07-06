@@ -5,35 +5,52 @@
 Prerequisites:
 
 - In Windows/Mac, simply install Docker Desktop
-- In Ubuntu, install Docker Engine and Docker Compose
+- In Linux, install Docker Engine and Docker Compose
 
 Steps:
 
-1. Clone the project repository
-2. Navigate to the project directory on the terminal and run:
+- Build the project. (**NOTE**: You only need to do this once. If you have already done this, skip this step)
 
-   - `mkdir data data/postgres data/grafana data/pgadmin`
-   - `docker compose up --build`
+  - Clone the project
 
-​	3. Open the web app in your browser at http://localhost:8000/
+    `git clone https://github.com/darren-sm/DICT-PMS.git`
 
-### Development
+  - Navigate to the project directory and create data folders for volumes
 
-1. At project root, create a virtual environment and enable it
+    `mkdir data data/postgres data/grafana data/pgadmin`
 
-   `python -m venv venv && source venv/bin/activate`
+  - Build 
 
-2. Navigate to the web directory
+    `docker compose build`
 
-   `cd web`
+  - Run the project
 
-3. Install the dependencies
+    `docker compose up -d`
 
-   `pip install -r requirements.txt`
+  - Perform the Migration
 
-From here, you can continue the development, for example by creating another app:
+    `docker ps`
 
-`python manage.py startapp someapp`
+    - Get the container id of the service with the name "system" (e.g. `9040225fb1aa`)
 
+    - Open the container with bash
 
+      `docker exec -it 9040225fb1aa bash`
 
+    - Make migrations
+
+      `python manage.py makemigrations myapp`
+
+    - Create the tables
+
+      `python manage.py migrate myapp`
+
+  - Stop the app
+
+    `docker compose down`
+
+- Run the project
+
+  `docker compose up`
+
+  > Stop with CTRL + C
