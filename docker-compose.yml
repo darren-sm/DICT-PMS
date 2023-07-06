@@ -45,6 +45,7 @@ services:
   #   user: "1000"
 
   system:
+    container_name: system
     build: web/
     command: >
       sh -c "python manage.py migrate &&
