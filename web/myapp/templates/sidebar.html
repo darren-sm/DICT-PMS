@@ -41,7 +41,7 @@
     }
 </style>
 
-<div class="vh-100 w-25 sidebar">
+<div class="vh-100 w-25 sidebar">    
     <div class="vh-100 d-flex flex-column justify-content-between">
         <div class="d-flex flex-column sidebar-list">
             <div class="d-flex justify-content-center project-logo">
@@ -49,31 +49,35 @@
             </div>
             <ul class="list-group">
                 <li class="active">
+                    <img src="{% static 'home.png' %}" style="height: 30px; width: 30px">
+                    <a href="{% url 'home' %}">Home</a>
+                </li>
+                <li class="">
                     <img src="{% static 'dashboard.png' %}" style="height: 30px; width: 30px">
-                    <a href="#">Dashboard</a>
+                    <a href="{% url 'dashboard' %}">Dashboard</a>
                 </li>
                 <li class="">
                     <img src="{% static 'inputdata.png' %}" style="height: 30px; width: 30px">
-                    <a href="#">Input Data</a>
+                    <a href="{% url 'home' %}">Input Data</a>
                 </li>
                 <li class="">
                     <img src="{% static 'logs.png' %}" style="height: 30px; width: 30px">
-                    <a href="#">Logs</a>
+                    <a href="{% url 'home' %}">Logs</a>
                 </li>
                 <li>
                     <img src="{% static 'reports.png' %}" style="height: 30px; width: 30px">
-                    <a href="#">Report</a>
+                    <a href="{% url 'report' %}">Report</a>
                 </li>
                 <li>
                     <img src="{% static 'settings.png' %}" style="height: 30px; width: 30px">
-                    <a href="#">Settings</a>
+                    <a href="{% url 'home' %}">Settings</a>
                 </li>
             </ul>
         </div>
         <div class="mx-auto pb-3">
-            <button type="button" class="btn btn-light rounded-pill">Log out</button>
-        </div>
-    </div>
+            <a role="button" class="btn btn-light rounded-pill" href="{% url 'logout' %}">Log out</a>
+        </div>        
+    </div>    
 </div>
 
 <script type="text/javascript">
