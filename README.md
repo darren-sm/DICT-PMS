@@ -45,6 +45,10 @@ Steps:
 
       `python manage.py migrate myapp`
 
+    - Exit from the container
+
+      `exit`
+
   - Stop the app
 
     `docker compose down`
