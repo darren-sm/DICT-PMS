@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-
+from .forms import CPMSForm, ExamineesForm, OJTInputForm
 #homeview
 def home(request):
     if request.user.is_authenticated:
@@ -32,6 +32,40 @@ def logout_user(request):
     messages.success(request, "You have logged out")
     return redirect('login')
 
+#Input Forms
+
+def cpms_create_view(request):
+    if request.method == 'POST':
+        form = CPMSForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  
+    else:
+        form = CPMSForm()
+    return render(request, 'cpms_form.html', {'form': form})
+
+def examinees_create_view(request):
+    if request.method == 'POST':
+        form = ExamineesForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  
+    else:
+        form = ExamineesForm()
+    return render(request, 'examinees_form.html', {'form': form})
+
+def ojt_input_create_view(request):
+    if request.method == 'POST':
+        form = OJTInputForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('home')  
+    else:
+        form = OJTInputForm()
+    return render(request, 'ojt_input_form.html', {'form': form})
+
+#Dashboard Backend
+
 def dashboard(request):
     if request.user.is_authenticated:
         return render(request, 'dashboard.html', {})
@@ -43,3 +77,4 @@ def report(request):
         return render(request, 'report.html', {})
     messages.error(request, "You have to log in first to access that")
     return redirect('login')
+

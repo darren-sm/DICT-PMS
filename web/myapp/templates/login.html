@@ -1,19 +1,93 @@
-{% extends 'base.html' %}
+{% extends 'base.html' %} {% block content %}
 
-{% block content %}
+<style>
+  .background {
+    background-color: #0e2868;
+    background-size: cover;
+    background-position: center;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 
-<form method='POST' action="{% url 'login' %}">
+    .card {
+      width: 400px;
+      height: 400px;
+      border-radius: 60px;
+    }
+
+    .logo {
+      height: 120px;
+      width: 120px;
+      border-radius: 70px;
+      background-color: aqua;
+      position: absolute;
+      top: -50px;
+    }
+  }
+</style>
+
+<div class="background">
+  <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
-    <div class="mb-3">
-      <label for="username" class="form-label">Username</label>
-      <input type="text" class="form-control" name='username' id='username' required>
-    </div>
-    <div class="mb-3">
-      <label for="password" class="form-label">Password</label>
-      <input type="password" class="form-control" name='password' id='password' required>
-    </div>
 
-    <button type="submit" class="btn btn-primary">Submit</button>
-</form>
+    <div class="card">
+      <div
+        class="card-body d-flex justify-content-center flex-column align-items-center"
+      >
+        <div class="d-flex justify-content-center align-items-center logo">
+          <img src="../templates/img/dict.png" width="70" height="70" />
+        </div>
+
+        <h1 style="font-size: 20px; font-family: 'Bellota Text'">Login</h1>
+
+        <div class="mb-3">
+          <label
+            for="username"
+            class="form-label"
+            style="font-family: 'Bellota Text'"
+            >Username</label
+          >
+          <input
+            type="text"
+            class="form-control"
+            name="username"
+            size="30"
+            id="username"
+            required
+          />
+        </div>
+        <div class="mb-3">
+          <label
+            for="password"
+            class="form-label"
+            style="font-family: 'Bellota Text'"
+            >Password</label
+          >
+          <input
+            type="password"
+            class="form-control"
+            name="password"
+            size="30"
+            id="password"
+            required
+          />
+        </div>
+
+        <button
+          type="submit"
+          class="btn btn-primary"
+          style="
+            border-radius: 25px;
+            background-color: #f6c870;
+            font-family: 'Bellota Text';
+          "
+        >
+          Log in
+        </button>
+      </div>
+    </div>
+  </form>
+</div>
 
 {% endblock %}
