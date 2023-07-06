@@ -1,0 +1,83 @@
+{% load static %}
+<style>
+    .sidebar{
+        background-color: #F0B041;
+    }
+
+    .project-logo{
+        padding: 50px;
+    }
+
+    .sidebar-list li{
+        padding: 10px;
+    }
+
+    .sidebar-list li a{
+        text-decoration: none;
+        padding: 10px;
+        color: black;
+        font-family: 'Bellota Text';
+        font-size: 20px;
+        font-weight: 600;
+        border: none;
+    }
+    
+    .sidebar-list a:hover{
+        color: white;
+    }
+
+    .sidebar-list li:hover{
+        background: #DF6134;
+    }
+
+    .sidebar-list li.active{
+        color: white;
+        background: #DF6134;
+    }
+
+    .btn{
+        font-family: 'Bellota Text';
+        font-weight: 600;
+    }
+</style>
+
+<div class="vh-100 w-25 sidebar">
+    <div class="vh-100 d-flex flex-column justify-content-between">
+        <div class="d-flex flex-column sidebar-list">
+            <div class="d-flex justify-content-center project-logo">
+                <img src="{% static 'dict-flex.png' %}" style="height: 70px; width: 150px;">
+            </div>
+            <ul class="list-group">
+                <li class="active">
+                    <img src="{% static 'dashboard.png' %}" style="height: 30px; width: 30px">
+                    <a href="#">Dashboard</a>
+                </li>
+                <li class="">
+                    <img src="{% static 'inputdata.png' %}" style="height: 30px; width: 30px">
+                    <a href="#">Input Data</a>
+                </li>
+                <li class="">
+                    <img src="{% static 'logs.png' %}" style="height: 30px; width: 30px">
+                    <a href="#">Logs</a>
+                </li>
+                <li>
+                    <img src="{% static 'reports.png' %}" style="height: 30px; width: 30px">
+                    <a href="#">Report</a>
+                </li>
+                <li>
+                    <img src="{% static 'settings.png' %}" style="height: 30px; width: 30px">
+                    <a href="#">Settings</a>
+                </li>
+            </ul>
+        </div>
+        <div class="mx-auto pb-3">
+            <button type="button" class="btn btn-light rounded-pill">Log out</button>
+        </div>
+    </div>
+</div>
+
+<script type="text/javascript">
+    $(document).on('click', 'ul li', function(){
+        $(this).addClass('active').siblings().removeClass('active')
+    })
+</script>
