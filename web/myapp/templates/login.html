@@ -1,4 +1,4 @@
-{% extends 'base.html' %} {% block content %} {% load static %}
+{% extends 'base.html' %} {% block unauthenticated_content %} {% load static %}
 <style>
   .background {
     background-color: #0e2868;
@@ -27,6 +27,7 @@
 </style>
 
 <div class="background">
+  
   <form method="POST" action="{% url 'login' %}">
     {% csrf_token %}
 
