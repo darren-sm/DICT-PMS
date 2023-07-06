@@ -8,6 +8,7 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 #Database Models--
 
 #model for CPMS
+<<<<<<< HEAD
 
 class CPMS(models.Model):
     program = models.CharField(max_length=255, primary_key=True)
@@ -21,6 +22,15 @@ class CPMS(models.Model):
 
     def __str__(self) -> str:
         return f"{self.program}"
+=======
+class CPMS(models.Model):
+    program = models.CharField(max_length=255, primary_key=True)
+    activities = models.TextField()
+    performance_indicator = models.TextField()
+    target = models.IntegerField()
+    accomplishment = models.IntegerField()
+    remarks = models.TextField()
+>>>>>>> 732a5a283b980ee31bf2eea2fe188c7d62a5e2c8
 
 #model for Examinees
 class Examinees(models.Model):
@@ -54,8 +64,11 @@ class Examinees(models.Model):
     remarks = models.CharField(max_length=255)
     batch = models.CharField(max_length=255)
 
+<<<<<<< HEAD
     def __str__(self) -> str:
         return f"[{self.batch}] {self.name} - {self.province}"
+=======
+>>>>>>> 732a5a283b980ee31bf2eea2fe188c7d62a5e2c8
 #model for OJT
 class OJTInput(models.Model):
     PROVINCE_CHOICES = [
@@ -100,7 +113,11 @@ class OJTInput(models.Model):
     resume = models.BooleanField()
     endorsement = models.BooleanField()
     moa = models.BooleanField()
+<<<<<<< HEAD
     remarks = models.CharField(max_length=10)
     
     def __str__(self) -> str:
         return f"{self.student_name} ({self.suc})"
+=======
+    remarks = models.CharField(max_length=10)
+>>>>>>> 732a5a283b980ee31bf2eea2fe188c7d62a5e2c8

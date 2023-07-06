@@ -1,5 +1,5 @@
 {% extends 'base.html' %} {% block content %}
-
+{% load static %}
 <style>
   .background {
     background-color: #0e2868;
@@ -36,7 +36,8 @@
         class="card-body d-flex justify-content-center flex-column align-items-center"
       >
         <div class="d-flex justify-content-center align-items-center logo">
-          <img src="../templates/img/dict.png" width="70" height="70" />
+          {% comment %} <img src="../templates/img/dict.png" width="70" height="70" /> {% endcomment %}
+          <img src="{% static 'dict.png' %}" alt='DICT logo' width="70" height="70" />
         </div>
 
         <h1 style="font-size: 20px; font-family: 'Bellota Text'">Login</h1>
