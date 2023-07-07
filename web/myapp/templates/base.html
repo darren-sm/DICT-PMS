@@ -18,7 +18,9 @@
   <body>
     {% if user.is_authenticated %}
     <div class="d-flex">
-      {% include 'sidebar.html' %}
+      <div class="vh-100">
+        {% include 'sidebar.html' %}
+      </div>
       <div>
         {% block authenticated_content %}
         {% endblock %}
