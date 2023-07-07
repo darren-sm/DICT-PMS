@@ -2,10 +2,19 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CPMSForm, ExamineesForm, OJTInputForm
+from .models import CPMS, Examinees, OJTInput
 #homeview
 def home(request):
+    cpms_data = CPMS.objects.all()
+    examinees_data = Examinees.objects.all()
+    ojt_data = OJTInput.objects.all()
+
     if request.user.is_authenticated:
-        return render(request, 'index.html', {})
+        return render(request, 'index.html', {
+            'cpms_data': cpms_data,
+            'examinees_data': examinees_data,
+            'ojt_data': ojt_data
+        })
     else:
         return redirect('login')
 
