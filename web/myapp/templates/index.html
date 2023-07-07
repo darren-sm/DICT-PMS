@@ -39,7 +39,7 @@
     {% endif %}
     </tbody>
 </table>
-<a class="btn btn-success"  href="#" role="button">Add new Examinee data</a>
+<a class="btn btn-success"  href="{% url 'examinees_form' %}" role="button">Add new Examinee data</a>
 
 
 <h1> OJT Input Data Data </h1>
@@ -93,7 +93,7 @@
     {% endif %}
     </tbody>
 </table>
-<a class="btn btn-success"  href="#" role="button">Add new OJT Input</a>
+<a class="btn btn-success"  href="{% url 'ojt_input_form' %}" role="button">Add new OJT Input</a>
 
 
 {% endblock %}
