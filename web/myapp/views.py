@@ -78,3 +78,8 @@ def report(request):
     messages.error(request, "You have to log in first to access that")
     return redirect('login')
 
+def inputdata(request):
+    if request.user.is_authenticated:
+        return render(request, 'inputdata.html', {})
+    messages.error(request, "You have to log in first to access that")
+    return redirect('login')

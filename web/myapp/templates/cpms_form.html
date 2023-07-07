@@ -1,7 +1,7 @@
 
 {% extends 'base.html' %}
 
-{% block content %}
+{% block authenticated_content %}
 <h1>Create CPMS</h1>
 <form method="POST">
     {% csrf_token %}

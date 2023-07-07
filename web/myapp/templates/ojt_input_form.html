@@ -1,6 +1,6 @@
 {% extends 'base.html' %}
 
-{% block content %}
+{% block authenticated_content %}
 <h1>Create OJT Input</h1>
     <form method="POST">
         {% csrf_token %}
