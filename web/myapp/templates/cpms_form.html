@@ -2,10 +2,96 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
+<script>
+    var uniqueId = 1; // Initialize unique identifier
+
+    function addFields() {
+        var table = document.getElementById("fieldsTable");
+        var row = table.insertRow();
+        var currentId = uniqueId; // Capture the current unique identifier
+
+        row.id = "row_" + currentId; // Assign unique identifier to the row
+
+        // Create empty cell for Field A
+        row.insertCell();
+
+        // Create cells for Field B, C, D, and E
+        var cellB = row.insertCell();
+        var cellC = row.insertCell();
+        var cellD = row.insertCell();
+        var cellE = row.insertCell();
+        var cellF = row.insertCell();
+
+        var inputB = document.createElement("input");
+        inputB.type = "text";
+        inputB.name = "Activity[]";
+        cellB.appendChild(inputB);
+
+        var inputC = document.createElement("input");
+        inputC.type = "text";
+        inputC.name = "Indicator[]";
+        cellC.appendChild(inputC);
+
+        var inputD = document.createElement("input");
+        inputD.type = "number";
+        inputD.name = "Target[]";
+        cellD.appendChild(inputD);
+
+        var inputE = document.createElement("input");
+        inputE.type = "number";
+        inputE.name = "Accomplishment[]";
+        cellE.appendChild(inputE);
+
+        var inputF = document.createElement("input");
+        inputF.type = "text";
+        inputF.name = "Remarks[]";
+        cellF.appendChild(inputF);
+
+        // Create remove button
+        var removeButton = document.createElement("button");
+        removeButton.type = "button";
+        removeButton.classList.add("remove-button");
+        removeButton.innerHTML = "Remove";
+        removeButton.onclick = (function(id) {
+            return function() {
+                var currentRow = document.getElementById("row_" + id); // Get the current row
+                currentRow.parentNode.removeChild(currentRow); // Remove the current row from the table
+            };
+        })(currentId);
+        row.appendChild(removeButton);
+
+        uniqueId++; // Increment unique identifier
+    }
+</script>
+
 <h1>Create CPMS</h1>
 <form method="POST">
     {% csrf_token %}
-    {{ form.as_p }}
-    <button type="submit">Save</button>
+    <table class="table table-hover">
+        <tr>
+            <th>Program</th>
+            <th>Activity</th>
+            <th>Indicator</th>
+            <th>Target</th>
+            <th>Accomplishment</th>
+            <th>Remarks</th>
+        </tr>
+        <tr>
+            <td><input type="text" name="Program" required></td>
+            <td><input type="text" name="Activity[]"></td>
+            <td><input type="text" name="Indicator[]"></td>
+            <td><input type="number" name="Target[]"></td>
+            <td><input type="number" name="Accomplishment[]"></td>
+            <td><input type="text" name="Remarks[]"></td>
+        <tbody id="fieldsTable">
+        </tbody>
+    </table>
+
+    <br>
+    <button type="button" onclick="addFields()" class="add-button">Add</button>
+    <br><br>
+    
+    <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+<a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
 {% endblock %}

@@ -15,7 +15,8 @@ class CPMS(models.Model):
         "Activity": "",
         "Indicator": "",
         "Target": None,
-        "Accomplishment": None
+        "Accomplishment": None,
+        "Remarks": ""
     },
     ])
 
