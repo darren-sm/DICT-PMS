@@ -42,7 +42,10 @@ class Examinees(models.Model):
         ('For checking', 'For checking'),
         ('For transmittal', 'For transmittal'),
     ]
-
+    TIME_CHOICES = [
+        ('AM','am'),
+        ('PM','pm'),
+    ]
     no = models.AutoField(primary_key=True)
     province = models.CharField(max_length=255)
     component = models.CharField(max_length=15, choices=COMPONENT_CHOICES)
@@ -50,7 +53,7 @@ class Examinees(models.Model):
     venue = models.CharField(max_length=255)
     gender = models.CharField(max_length=1, choices=GENDER_CHOICES)
     date = models.DateField()
-    time = models.CharField(max_length=2)
+    time = models.CharField(max_length=2, choices=TIME_CHOICES)
     status = models.CharField(max_length=20, choices=STATUS_CHOICES)
     remarks = models.CharField(max_length=255)
     batch = models.CharField(max_length=255)
