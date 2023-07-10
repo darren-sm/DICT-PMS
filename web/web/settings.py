@@ -59,6 +59,9 @@ TEMPLATES = [
         'DIRS': [],
         'APP_DIRS': True,
         'OPTIONS': {
+            'libraries': {
+                'custom_filter': 'myapp.custom_filter',
+            },
             'context_processors': [
                 'django.template.context_processors.debug',
                 'django.template.context_processors.request',
