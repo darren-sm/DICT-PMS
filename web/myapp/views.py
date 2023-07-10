@@ -171,3 +171,37 @@ def report(request):
         return render(request, 'report.html', {})
     messages.error(request, "You have to log in first to access that")
     return redirect('login')
+
+
+def record(request, category, primary_key):
+    if request.user.is_authenticated:
+        categories = {
+            'cpms': {
+                'class': CPMS, 
+                'selector': 'program', 
+                'name': 'CPMS',
+                'keys': ['Activity', 'Indicator', 'Target', 'Accomplishment', 'Remarks']
+                },
+            'examinee': {
+                'class': Examinees, 
+                'selector': 'no', 
+                'name': 'Examinee',
+                'keys': ['province', 'component', 'name', 'venue', 'gender', 'date', 'time', 'status', 'remarks', 'batch']
+                },
+            'ojt': {
+                'class': OJTInput, 
+                'selector': 'id',
+                'name': 'OJT Input',
+                'keys': ['province', 'category', 'suc', 'duration', 'school_address', 'representative', 'representative_contact', 'student_name', 'sex', 'student_contact', 'start_date', 'end_date', 'mode', 'resume', 'endorsement', 'moa', 'remarks']
+                }
+        }
+        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: primary_key})
+        if category == 'cpms':
+            target_record = _flatten_cpms(target_record)
+        return render(request, 'record.html', 
+                      {'record': target_record, 
+                       'category': categories[category]['name'],
+                       'selector': categories[category]['selector'],
+                       'keys': categories[category]['keys']
+                       })
+    return redirect('login')

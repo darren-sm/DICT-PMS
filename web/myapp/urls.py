@@ -12,4 +12,5 @@ urlpatterns = [
     path('form/cpms/', views.cpms_create_view, name='cpms_form'),
     path('form/examinees/', views.examinees_create_view, name='examinees_form'),
     path('form/ojt-input/', views.ojt_input_create_view, name='ojt_input_form'),    
+    path('record/<category>/<primary_key>', views.record, name='record')
 ]

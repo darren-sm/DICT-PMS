@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+
+{% block authenticated_content %}
+<h1>Hello</h1>
+<h4>{{ category }} Record</h4> 
+
+<div class="card">
+    <div class="card-header">
+      {{ record }}
+    </div>
+    <div class="card-body">
+        {% load custom_filter %}
+        {% for key in keys %}
+            <span><strong>{{ key }}</strong>: {{ record|get_attribute:key }}</span><br>
+        {% endfor %}
+      <a href="#" class="btn btn-primary">Go somewhere</a>
+    </div>
+  </div>
+
+
+{% endblock %}
