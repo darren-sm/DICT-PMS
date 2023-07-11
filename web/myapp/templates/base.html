@@ -15,18 +15,36 @@
     <link href='https://fonts.googleapis.com/css?family=Bellota Text' rel='stylesheet'>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
+    <style>
+
+      *{
+        padding: 0;
+        margin: 0;
+      }
+
+      body{
+        height: 100vh;
+        width: 100vw;
+      }
+      
+      .contents{
+        margin-left: 270px;
+      }
+    
+    </style>
+
   </head>
   <body>
     {% if user.is_authenticated %}
-    <div class="d-flex">
-      <div class="vh-100">
+    
+      <div class="vh-100 position-fixed sidebar" style="float: left;">
         {% include 'sidebar.html' %}
       </div>
-      <div>
+      <div class="contents">
         {% block authenticated_content %}
         {% endblock %}
       </div>
-    </div>
+
     {% else %}
         <div>
           {% block unauthenticated_content %}
