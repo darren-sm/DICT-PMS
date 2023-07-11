@@ -98,19 +98,7 @@ def cpms_create_view(request):
 def examinees_create_view(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form_data = {
-                'province': request.POST['province'],
-                'component': request.POST['component'],
-                'name': request.POST['examinee_name'],
-                'venue': request.POST['venue'],
-                'gender': request.POST['gender'],
-                'date': request.POST['datepicker'],
-                'time': request.POST['time'],
-                'status': request.POST['status'],
-                'remarks': request.POST['remarks'],
-                'batch': request.POST['batch'],
-            }
-            form = ExamineesForm(form_data)
+            form = ExamineesForm(request.POST)
             if form.is_valid():
                 form.save()
                 return redirect('home')  
@@ -127,27 +115,7 @@ def examinees_create_view(request):
 def ojt_input_create_view(request):
     if request.user.is_authenticated:
         if request.method == 'POST':
-            form_data = {
-                'province': request.POST['province'],
-                'category': request.POST['category'],
-                'suc': request.POST['suc'],
-                'duration': request.POST['duration'],
-                'school_address': request.POST['school_address'],
-                'representative': request.POST['representative'],
-                'representative_contact': request.POST['representative_contact'],
-                'student_name': request.POST['student_name'],
-                'sex': request.POST['sex'],
-                'student_contact': request.POST['student_contact'],
-                'start_date': request.POST['start_date'],
-                'end_date': request.POST['end_date'],
-                'mode': request.POST['mode'],
-                'resume': request.POST.get('resume') == 'true',
-                'endorsement': request.POST.get('endorsement') == 'true',
-                'moa': request.POST.get('resume') == 'true',
-                'remarks': request.POST['remarks'],
-            }
-            print(form_data)
-            form = OJTInputForm(form_data)
+            form = OJTInputForm(request.POST)
             if form.is_valid():
                 form.save()
                 return redirect('home')  
