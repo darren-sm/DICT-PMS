@@ -1,19 +1,53 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
-<h1>Hello</h1>
-<h4>{{ category }} Record</h4> 
+<h3>{{ name }} Record</h3> 
 
+{% load custom_filter %}
 <div class="card">
-    <div class="card-header">
-      {{ record }}
+    <div class="card-header">        
+        {% if name == 'CPMS' %}
+            {{ record.0.Program }}
+        {% else %}
+            {{ record }}
+        {% endif %}
     </div>
     <div class="card-body">
-        {% load custom_filter %}
-        {% for key in keys %}
-            <span><strong>{{ key }}</strong>: {{ record|get_attribute:key }}</span><br>
-        {% endfor %}
-      <a href="#" class="btn btn-primary">Go somewhere</a>
+        {% if name == 'CPMS' %}
+            <table class="table table-hover">
+                <thead>
+                <tr>
+                    <th class='text-center' scope="col">Program</th>
+                    <th class='text-center' scope="col">Activity</th>
+                    <th class='text-center' scope="col">Indicator</th>
+                    <th class='text-center' scope="col">Target</th>
+                    <th class='text-center' scope="col">Accomplishment</th>
+                    <th class='text-center' scope="col">Remarks</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for cpms in flattened_cpms %}
+                    <tr>
+                    <td class='text-center'> {{ record.Program }}</td>
+                    <td class='text-center'> {{ cpms.Activty }} </td>
+                    <td class='text-center'> {{ cpms.Indicator }} </td>
+                    <td class='text-center'> {{ cpms.Target }} </td>
+                    <td class='text-center'> {{ cpms.Accomplishment }} </td>
+                    <td class='text-center'> {{ cpms.Remark }} </td>
+                    <br>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        {% else %}
+            {% for key in keys %}
+                <p class='card-text'><strong>{{ key }}</strong>: {{ record|get_attribute:key }}</p>
+            {% endfor %}
+        {% endif %}
+        
+      <a href="{% url 'home' %}" class="btn btn-secondary">Go back</a>
+      
+      <a href="{% url 'delete_record' category key %}" class="btn btn-danger">Delete</a>
     </div>
   </div>
 
