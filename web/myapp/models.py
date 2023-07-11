@@ -10,7 +10,8 @@ from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin, BaseU
 #model for CPMS
 
 class CPMS(models.Model):
-    program = models.CharField(max_length=255, primary_key=True)
+    id = models.AutoField(primary_key=True),
+    program = models.CharField(max_length=255)
     info = models.JSONField(default=[{
         "Activity": "",
         "Indicator": "",
