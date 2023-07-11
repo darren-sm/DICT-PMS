@@ -14,6 +14,7 @@ def _flatten_cpms(cpms_data):
             foo.Program = cpms_data['program']
         else:
             foo.Program = ''
+        foo.id = cpms_data['id']
         foo.Activty = cpms_data['info']['Activity'][i]
         foo.Indicator = cpms_data['info']['Indicator'][i]
         foo.Target = cpms_data['info']['Target'][i]
@@ -178,9 +179,9 @@ def record(request, category, primary_key):
         categories = {
             'cpms': {
                 'class': CPMS, 
-                'selector': 'program', 
+                'selector': 'id', 
                 'name': 'CPMS',
-                'keys': ['Activity', 'Indicator', 'Target', 'Accomplishment', 'Remarks']
+                'keys': ['program', 'info.Target']
                 },
             'examinee': {
                 'class': Examinees, 
@@ -196,12 +197,38 @@ def record(request, category, primary_key):
                 }
         }
         target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: primary_key})
-        if category == 'cpms':
-            target_record = _flatten_cpms(target_record)
+        if category == "cpms":
+            flattened_cpms = _flatten_cpms(target_record.__dict__)
         return render(request, 'record.html', 
                       {'record': target_record, 
-                       'category': categories[category]['name'],
-                       'selector': categories[category]['selector'],
+                       'name': categories[category]['name'],
+                       'flattened_cpms': flattened_cpms if category == "cpms" else None,
+                       'category':category,
+                       'key': target_record.id if category in ('cpms', 'ojt') else target_record.no,
                        'keys': categories[category]['keys']
                        })
+    return redirect('login')
+
+
+def delete_record(request, category, primary_key):
+    if request.user.is_authenticated:
+        categories = {
+            'cpms': {
+                'class': CPMS, 
+                'selector': 'id'
+                },
+            'examinee': {
+                'class': Examinees, 
+                'selector': 'no', 
+                },
+            'ojt': {
+                'class': OJTInput, 
+                'selector': 'id',
+                }
+        }
+        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: primary_key})
+        target_record.delete()
+        messages.success(request, "Record deleted succesfully")
+        return redirect('home')
+    
     return redirect('login')
