@@ -1,89 +1,86 @@
 {% load static %}
 <style>
-    .sidebar{
+    .sidebar {
         background-color: #F0B041;
         width: 270px;
     }
 
-    .project-logo{
+    .project-logo {
         padding: 50px;
     }
 
-    .sidebar-list li{
-        padding: 10px;
-        display: block;
-    }
-
-    .sidebar-list li a{
-        padding: 10px;
+    .sidebar-list ul a {
+        display: inline-block;
         text-decoration: none;
         color: black;
         font-family: 'Bellota Text';
-        font-size: 20px;
+        font-size: 18px;
         font-weight: 600;
         border: none;
     }
-    
-    .sidebar-list a:hover{
+
+    .btn.btn-primary:hover {
+        background-color: #DF6134;
         color: white;
     }
 
-    .sidebar-list li:hover{
-        background: #DF6134;
+    .btn.btn-primary {
+        background-color: #F0B041;
+        color: black;
+        border-style: none;
+        padding: 10px;
+        padding-left: 25px;
+        column-gap: 10px;
     }
 
-    .sidebar-list li.active{
+    .btn.btn-primary.active {
+        background-color: #DF6134;
         color: white;
-        background: #DF6134;
     }
 
-    .btn{
+    .btn {
         font-family: 'Bellota Text';
         font-weight: 600;
     }
 </style>
 
-<div class="vh-100 sidebar">    
+<div class="vh-100 sidebar">
     <div class="vh-100 d-flex flex-column justify-content-between">
         <div class="d-flex flex-column sidebar-list">
             <div class="d-flex justify-content-center project-logo">
                 <img src="{% static 'dict-flex.png' %}" style="height: 70px; width: 150px;">
             </div>
             <ul class="list-group">
-                <li class="active">
+                <a class="btn btn-primary d-flex align-items-center" href="{% url 'home' %}">
                     <img src="{% static 'home.png' %}" style="height: 30px; width: 30px">
-                    <a href="{% url 'home' %}">Home</a>
-                </li>
-                <li class="">
+                    Home
+                </a>
+                <a class="btn btn-primary d-flex align-items-center" href="{% url 'dashboard' %}">
                     <img src="{% static 'dashboard.png' %}" style="height: 30px; width: 30px">
-                    <a href="{% url 'dashboard' %}">Dashboard</a>
-                </li>
-                <li class="">
+                    Dashboard
+                </a>
+                <a class="btn btn-primary d-flex align-items-center" href="{% url 'inputdata' %}">
                     <img src="{% static 'inputdata.png' %}" style="height: 30px; width: 30px">
-                    <a href="{% url 'inputdata' %}">Input Data</a>
-                </li>
-                <li class="">
+                    Input Data
+                </a>
+                <a class="btn btn-primary d-flex align-items-center" href="{% url 'home' %}">
                     <img src="{% static 'logs.png' %}" style="height: 30px; width: 30px">
-                    <a href="{% url 'home' %}">Logs</a>
-                </li>
-                <li>
+                    Logs
+                </a>
+                <a class="btn btn-primary d-flex align-items-center" href="{% url 'report' %}">
                     <img src="{% static 'reports.png' %}" style="height: 30px; width: 30px">
-                    <a href="{% url 'report' %}">Report</a>
-                </li>
-                <li>
+                    Reports
+                </a>
+                <a class="btn btn-primary d-flex align-items-center" href="{% url 'home' %}">
                     <img src="{% static 'settings.png' %}" style="height: 30px; width: 30px">
-                    <a href="{% url 'home' %}">Settings</a>
-                </li>
+                    Settings
+                </a>
             </ul>
         </div>
         <div class="mx-auto pb-3">
             <a role="button" class="btn btn-light rounded-pill" href="{% url 'logout' %}">Log out</a>
-        </div>        
-    </div>    
+        </div>
+    </div>
 </div>
 
-<script type="text/javascript">
-    $(document).on('click', 'ul li', function(){
-        $(this).addClass('active').siblings().removeClass('active')
-    })
-</script>
+
