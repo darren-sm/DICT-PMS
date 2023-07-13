@@ -2,7 +2,7 @@
 
 {% block authenticated_content %}
 <div class="vh-100 w-100">
-<h1>Create OJT Input</h1>
+<h1 style="text-transform: capitalize;">{{method}} OJT Input</h1>
 <div class="d-flex flex-row justify-content-center align-items-center">
 <form method="POST">
     {% csrf_token %}
