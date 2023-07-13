@@ -5,12 +5,8 @@
 
 {% load custom_filter %}
 <div class="card">
-    <div class="card-header">        
-        {% if name == 'CPMS' %}
-            {{ record.0.Program }}
-        {% else %}
-            {{ record }}
-        {% endif %}
+    <div class="card-header">                
+        {{ record }}
     </div>
     <div class="card-body">
         {% if name == 'CPMS' %}
@@ -28,7 +24,7 @@
                 <tbody>
                 {% for cpms in flattened_cpms %}
                     <tr>
-                    <td class='text-center'> {{ record.Program }}</td>
+                    <td class='text-center'> {{ cpms.Program }}</td>
                     <td class='text-center'> {{ cpms.Activty }} </td>
                     <td class='text-center'> {{ cpms.Indicator }} </td>
                     <td class='text-center'> {{ cpms.Target }} </td>
@@ -47,6 +43,7 @@
         
       <a href="{% url 'home' %}" class="btn btn-secondary">Go back</a>
       
+      <a href="{% url 'form' category 'update' key %}" class="btn btn-danger">Update</a>
       <a href="{% url 'delete_record' category key %}" class="btn btn-danger">Delete</a>
     </div>
   </div>
