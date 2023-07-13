@@ -99,8 +99,8 @@ def form(request, category, method = 'add', key = None):
             target_record = categories[category]['model'].objects.get(**{categories[category]['key']: key})
             item['key'] = key            
         
-        if category == 'cpms':
-            item['flattened_cpms'] = _flatten_cpms(target_record.__dict__)
+            if category == 'cpms':
+                item['flattened_cpms'] = _flatten_cpms(target_record.__dict__)
             
         if request.method == "POST":
             if category == 'cpms':                
