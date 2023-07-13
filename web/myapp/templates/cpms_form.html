@@ -96,7 +96,6 @@
             var cell = document.getElementById("program_name")
             cell.value = "{{flattened_cpms.0.Program}}"
         </script>
-        // Write the values of the original record to the corresponding cells
         {% for cpms in flattened_cpms %}
             {{ cpms.Program }}
             <script>
