@@ -3,19 +3,16 @@
 
 {% block authenticated_content %}
 <script>
-    var uniqueId = 1; // Initialize unique identifier
+    function addFields(row, row_number) {
+        var currentId = "row_" + row_number;
+        console.log("ID: " + currentId);
+        
+        if (row_number > 1){
+            // Create empty cell for Field A
+            row.insertCell();
+        }
 
-    function addFields() {
-        var table = document.getElementById("fieldsTable");
-        var row = table.insertRow();
-        var currentId = uniqueId; // Capture the current unique identifier
-
-        row.id = "row_" + currentId; // Assign unique identifier to the row
-
-        // Create empty cell for Field A
-        row.insertCell();
-
-        // Create cells for Field B, C, D, and E
+        // Create cells for Field B, C, D, E, and F
         var cellB = row.insertCell();
         var cellC = row.insertCell();
         var cellD = row.insertCell();
@@ -47,29 +44,35 @@
         inputF.name = "Remarks[]";
         cellF.appendChild(inputF);
 
-        // Create remove button
-        var removeButton = document.createElement("button");
-        removeButton.type = "button";
-        removeButton.classList.add("remove-button");
-        removeButton.innerHTML = "Remove";
-        removeButton.onclick = (function(id) {
-            return function() {
-                var currentRow = document.getElementById("row_" + id); // Get the current row
-                currentRow.parentNode.removeChild(currentRow); // Remove the current row from the table
-            };
-        })(currentId);
-        row.appendChild(removeButton);
-
-        uniqueId++; // Increment unique identifier
+        if (row_number > 1){
+            // Create remove button
+            var removeButton = document.createElement("button");
+            removeButton.type = "button";
+            removeButton.classList.add("remove-button");
+            removeButton.innerHTML = "Remove";
+            removeButton.onclick = (function() {
+                return function() {
+                   
+                    row.parentNode.removeChild(row); 
+                };
+            })();
+            row.appendChild(removeButton);
+        }
+        
+    }
+    var unique_id = 100;
+    function addRow(){
+        var table = document.getElementById("fieldsTable");
+        row = table.insertRow();
+        row.id = "row" + unique_id;
+        addFields(row, unique_id)
+        unique_id++
     }
 </script>
 
-
-
-<h1 class="w-100 d-flex justify-content-center">Create CPMS</h1>
+<h1 class="w-100 d-flex justify-content-center" style="text-transform: capitalize;>{{method}} CPMS</h1>
 
 <div class="w-100 vh-100 p-3">
-
 <form method="POST">
     {% csrf_token %}
 
@@ -83,23 +86,66 @@
             <th>Accomplishment</th>
             <th>Remarks</th>
         </tr>
-        <tr>
-            <td><input type="text" name="Program" required></td>
-            <td><input type="text" name="Activity[]"></td>
-            <td><input type="text" name="Indicator[]"></td>
-            <td><input type="number" name="Target[]"></td>
-            <td><input type="number" name="Accomplishment[]"></td>
-            <td><input type="text" name="Remarks[]"></td>
-        <tbody id="fieldsTable">
-        </tbody>
-    </table>
-    </div>
-
-    <br>
-    <button type="button" onclick="addFields()" class="add-button">Add</button>
-    <br><br>
+    {% if key %}
     
-    <button type="submit" class="btn btn-primary">Submit</button>
+        <tr id="row_1">
+            <td><input type="text" name="Program" id="program_name" required></td>
+        </tr>
+        <tbody id="fieldsTable">
+        <script>
+            var cell = document.getElementById("program_name")
+            cell.value = "{{flattened_cpms.0.Program}}"
+        </script>
+        // Write the values of the original record to the corresponding cells
+        {% for cpms in flattened_cpms %}
+            {{ cpms.Program }}
+            <script>
+                var table = document.getElementById("fieldsTable");
+                var row_number = {{ forloop.counter }};
+                var row = document.getElementById("row_" + row_number);
+                if (!row){
+                    var row = table.insertRow();
+                    row.id = "row" + row_number;
+                }
+                addFields(row, row_number)
+                var ActivtyCell = row.querySelector(':scope [name="Activity[]"]');
+                ActivtyCell.value = "{{cpms.Activty}}"
+                
+                var IndicatorCell = row.querySelector(':scope [name="Indicator[]"]');
+                IndicatorCell.value = "{{cpms.Indicator}}"
+                
+                var TargetCell = row.querySelector(':scope [name="Target[]"]');
+                TargetCell.value = "{{cpms.Target}}"
+                
+                var AccomplishmentCell = row.querySelector(':scope [name="Accomplishment[]"]');
+                AccomplishmentCell.value = "{{cpms.Accomplishment}}"
+                
+                var RemarksCell = row.querySelector(':scope [name="Remarks[]"]');
+                RemarksCell.value = "{{cpms.Remark}}"
+            </script>
+        {% endfor %}
+            
+    {% else %}
+    <tr>
+        <td><input type="text" name="Program" required></td>
+        <td><input type="text" name="Activity[]"></td>
+        <td><input type="text" name="Indicator[]"></td>
+        <td><input type="number" name="Target[]"></td>
+        <td><input type="number" name="Accomplishment[]"></td>
+        <td><input type="text" name="Remarks[]"></td>
+    </tr>
+    <tbody id="fieldsTable">
+
+    {% endif %}
+</tbody>
+</table>
+
+<br>
+<button type="button" onclick="addRow()" class="add-button">Add</button>
+<br><br>
+
+<button type="submit" class="btn btn-primary">Submit</button>
+    
 </form>
 <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
 

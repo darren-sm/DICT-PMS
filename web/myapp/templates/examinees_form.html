@@ -2,7 +2,7 @@
 
 {% block authenticated_content %}
     <div class="d-flex justify-contents-center align-items-center flex-column w-100 vh-100">
-    <h1>Create Examinees</h1>
+    <h1 style="text-transform: capitalize;">{{method}} {{ model }}</h1>
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
@@ -25,12 +25,12 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="examinee_name">Name</label>
-            <input type="text" class="form-control" name="examinee_name">
+            <label for="name">Name</label>
+            <input type="text" class="form-control" name="name" value="{{form.name.value|default_if_none:'' }}">
         </div>
         <div class="form-group">
             <label for="venue">Venue</label>
-            <input type="text" class="form-control" name="venue">
+            <input type="text" class="form-control" name="venue" value="{{form.venue.value|default_if_none:'' }}">
         </div>
         <div class="form-group">
             <label for="gender">Gender</label>
@@ -40,8 +40,8 @@
             </select>
         </div>
         <div class="form-group">
-            <label for="datepicker">Date</label>
-            <input type="text" class="form-control datepicker" name="datepicker" placeholder="Select a date">
+            <label for="date">Date</label>
+            <input type="text" class="form-control datepicker" name="date" placeholder="Select a date" value="{{form.date.value|default_if_none:'' }}">
         </div>
         <div class="form-group">
             <label for="time">Time</label>
@@ -61,20 +61,21 @@
         </div>
         <div class="form-group">
             <label for="remarks">Remarks</label>
-            <textarea class="form-control" name="remarks" rows="2"></textarea>
+            <textarea class="form-control" name="remarks" rows="2">{{form.remarks.value|default_if_none:'' }}</textarea>
         </div>
         <div class="form-group">
             <label for="batch">Batch</label>
-            <input type="text" class="form-control" name="batch">
+            <input type="text" class="form-control" name="batch" value="{{form.batch.value|default_if_none:'' }}" >
         </div>
         <button type="submit" class="btn btn-primary">Submit</button>
     </form>
+    
     <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
     </div>
     <script>
         $(document).ready(function() {
           $('.datepicker').datepicker({
-            format: "yyyy-mm-dd",
+            format: "MM dd, yyyy",
           });
         });
     </script>

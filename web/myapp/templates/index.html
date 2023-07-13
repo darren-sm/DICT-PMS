@@ -22,8 +22,8 @@
     {% for cpms in cpms_data %}
         {% for record in cpms %}
         <tr>
-          <td class='text-center'> {{ record.Program }} </td>
-          <td class='text-center'> {{ record.Activity }} </td>
+          <td class='text-center'> <a href="{% url 'record' 'cpms' record.id %}">{{ record.Program }}</a> </td>
+          <td class='text-center'> {{ record.Activty }} </td>
           <td class='text-center'> {{ record.Indicator }} </td>
           <td class='text-center'> {{ record.Target }} </td>
           <td class='text-center'> {{ record.Accomplishment }} </td>
@@ -35,7 +35,7 @@
     {% endif %}
     </tbody>
 </table>
-<a class="btn btn-success"  href="{% url 'cpms_form' %}" role="button">Add new CPMS data</a>
+<a class="btn btn-success"  href="{% url 'form' 'cpms' 'add' %}" role="button">Add new CPMS data</a>
 </div>
 
 <div>
@@ -61,7 +61,7 @@
     {% if examinees_data %}
         {% for examinee in examinees_data %}
         <tr>
-            <td class='text-center'>{{ examinee.no }}</td>
+            <td class='text-center'><a href="{% url 'record' 'examinee' examinee.no%}">{{ examinee.no }}</a></td>
             <td class='text-center'>{{ examinee.province }}</td>
             <td class='text-center'>{{ examinee.component }}</td>
             <td class='text-center'>{{ examinee.name }}</td>
@@ -77,9 +77,8 @@
     {% endif %}
     </tbody>
 </table>
-<a class="btn btn-success"  href="{% url 'examinees_form' %}" role="button">Add new Examinee data</a>
+<a class="btn btn-success"  href="{% url 'form' 'examinee' 'add'%}" role="button">Add new Examinee data</a>
 </div>
-
 
 <div>
 <h1> OJT Input Data Data </h1>
@@ -111,7 +110,7 @@
     {% if ojt_data %}
         {% for ojt in ojt_data %}
         <tr>
-            <td class='text-center'>{{ ojt.id }}</td>
+            <td class='text-center'><a href="{% url 'record' 'ojt' ojt.id%}">{{ forloop.counter }}</a></td>
             <td class='text-center'>{{ ojt.province }}</td>
             <td class='text-center'>{{ ojt.category }}</td>
             <td class='text-center'>{{ ojt.suc }}</td>
@@ -134,11 +133,11 @@
     {% endif %}
     </tbody>
 </table>
-</div>
-<a class="btn btn-success"  href="{% url 'ojt_input_form' %}" role="button">Add new OJT Input</a>
-</div>
-</div>
 
+</div>
+<a class="btn btn-success"  href="{% url 'form' 'ojt' 'add'%}" role="button">Add new OJT Input</a>
+</div>
+</div>
 
 
 {% endblock %}

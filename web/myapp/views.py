@@ -14,6 +14,7 @@ def _flatten_cpms(cpms_data):
             foo.Program = cpms_data['program']
         else:
             foo.Program = ''
+        foo.id = cpms_data['id']
         foo.Activty = cpms_data['info']['Activity'][i]
         foo.Indicator = cpms_data['info']['Indicator'][i]
         foo.Target = cpms_data['info']['Target'][i]
@@ -69,94 +70,65 @@ def inputdata(request):
 
 
 # (Input Form) CPMS Data
-def cpms_create_view(request):
+def form(request, category, method = 'add', key = None):
     if request.user.is_authenticated:
-        if request.method == 'POST':
-            form_data = {
-                'program': request.POST['Program'],
-                'info': {
-                    'Activity': request.POST.getlist('Activity[]'),
-                    'Indicator': request.POST.getlist('Indicator[]'),
-                    'Target': request.POST.getlist('Target[]'),
-                    'Accomplishment': request.POST.getlist('Accomplishment[]'),
-                    'Remarks': request.POST.getlist('Remarks[]')
-                }
+        
+        categories = {
+            'cpms': {
+                'model': CPMS,
+                'form': CPMSForm,
+                'html': 'cpms_form.html',
+                'key': 'id'
+            },
+            'examinee': {
+                'model': Examinees,
+                'form': ExamineesForm,
+                'html': 'examinees_form.html',
+                'key': 'no'
+            },
+            'ojt': {
+                'model': OJTInput,
+                'form': OJTInputForm,
+                'html': 'ojt_input_form.html',
+                'key': 'id'
             }
-            print(form_data)
-            form = CPMSForm(form_data)
-            if form.is_valid():
-                form.save()
-                return redirect('home')             
-        else:
-            form = CPMSForm()
-        return render(request, 'cpms_form.html', {'form': form})
-    else:
-        return redirect('login')
-
-# (Input Form) Examinee Data
-def examinees_create_view(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form_data = {
-                'province': request.POST['province'],
-                'component': request.POST['component'],
-                'name': request.POST['examinee_name'],
-                'venue': request.POST['venue'],
-                'gender': request.POST['gender'],
-                'date': request.POST['datepicker'],
-                'time': request.POST['time'],
-                'status': request.POST['status'],
-                'remarks': request.POST['remarks'],
-                'batch': request.POST['batch'],
-            }
-            form = ExamineesForm(form_data)
-            if form.is_valid():
-                form.save()
-                return redirect('home')  
+        }
+        item = {'method': method, 'model': category}
+        target_record = None
+        if method == 'update':       
+            target_record = categories[category]['model'].objects.get(**{categories[category]['key']: key})
+            item['key'] = key            
+        
+        if category == 'cpms':
+            item['flattened_cpms'] = _flatten_cpms(target_record.__dict__)
+            
+        if request.method == "POST":
+            if category == 'cpms':                
+                form = CPMSForm({
+                    'program': request.POST['Program'],
+                    'info': {
+                        'Activity': request.POST.getlist('Activity[]'),
+                        'Indicator': request.POST.getlist('Indicator[]'),
+                        'Target': request.POST.getlist('Target[]'),
+                        'Accomplishment': request.POST.getlist('Accomplishment[]'),
+                        'Remarks': request.POST.getlist('Remarks[]')
+                    }
+                }, instance = target_record)       
             else:
-                print(form.errors)
-        else:
-            form = ExamineesForm()
-        return render(request, 'examinees_form.html', {'form': form})
-    else:
-        return redirect('login')
-
-
-# (Input Form) CPMS Data
-def ojt_input_create_view(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form_data = {
-                'province': request.POST['province'],
-                'category': request.POST['category'],
-                'suc': request.POST['suc'],
-                'duration': request.POST['duration'],
-                'school_address': request.POST['school_address'],
-                'representative': request.POST['representative'],
-                'representative_contact': request.POST['representative_contact'],
-                'student_name': request.POST['student_name'],
-                'sex': request.POST['sex'],
-                'student_contact': request.POST['student_contact'],
-                'start_date': request.POST['start_date'],
-                'end_date': request.POST['end_date'],
-                'mode': request.POST['mode'],
-                'resume': request.POST.get('resume') == 'true',
-                'endorsement': request.POST.get('endorsement') == 'true',
-                'moa': request.POST.get('resume') == 'true',
-                'remarks': request.POST['remarks'],
-            }
-            print(form_data)
-            form = OJTInputForm(form_data)
+                form = categories[category]['form'](request.POST, instance = target_record)
+            
             if form.is_valid():
                 form.save()
-                return redirect('home')  
+                return redirect('home')     
             else:
-                print(form.errors)
-        else:
-            form = OJTInputForm()
-        return render(request, 'ojt_input_form.html', {'form': form})
-    else:
-        return redirect('login')
+                print(form.errors)    
+        else:            
+            form = categories[category]['form'](request.POST or None, instance=target_record)
+        item['form'] = form
+        return render(request, categories[category]['html'], item)
+
+    messages.error("You need to login to access that")
+    return redirect('home') 
 
 # Dashboard page (dashboard.html)
 def dashboard(request):
@@ -170,4 +142,64 @@ def report(request):
     if request.user.is_authenticated:
         return render(request, 'report.html', {})
     messages.error(request, "You have to log in first to access that")
+    return redirect('login')
+
+
+def record(request, category, primary_key):
+    if request.user.is_authenticated:
+        categories = {
+            'cpms': {
+                'class': CPMS, 
+                'selector': 'id', 
+                'name': 'CPMS',
+                'keys': ['program', 'info.Target']
+                },
+            'examinee': {
+                'class': Examinees, 
+                'selector': 'no', 
+                'name': 'Examinee',
+                'keys': ['province', 'component', 'name', 'venue', 'gender', 'date', 'time', 'status', 'remarks', 'batch']
+                },
+            'ojt': {
+                'class': OJTInput, 
+                'selector': 'id',
+                'name': 'OJT Input',
+                'keys': ['province', 'category', 'suc', 'duration', 'school_address', 'representative', 'representative_contact', 'student_name', 'sex', 'student_contact', 'start_date', 'end_date', 'mode', 'resume', 'endorsement', 'moa', 'remarks']
+                }
+        }
+        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: primary_key})
+        if category == "cpms":
+            flattened_cpms = _flatten_cpms(target_record.__dict__)
+        return render(request, 'record.html', 
+                      {'record': target_record, 
+                       'name': categories[category]['name'],
+                       'flattened_cpms': flattened_cpms if category == "cpms" else None,
+                       'category':category,
+                       'key': target_record.id if category in ('cpms', 'ojt') else target_record.no,
+                       'keys': categories[category]['keys']
+                       })
+    return redirect('login')
+
+
+def delete_record(request, category, primary_key):
+    if request.user.is_authenticated:
+        categories = {
+            'cpms': {
+                'class': CPMS, 
+                'selector': 'id'
+                },
+            'examinee': {
+                'class': Examinees, 
+                'selector': 'no', 
+                },
+            'ojt': {
+                'class': OJTInput, 
+                'selector': 'id',
+                }
+        }
+        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: primary_key})
+        target_record.delete()
+        messages.success(request, "Record deleted succesfully")
+        return redirect('home')
+    
     return redirect('login')
