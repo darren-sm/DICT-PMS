@@ -70,62 +70,65 @@ def inputdata(request):
 
 
 # (Input Form) CPMS Data
-def cpms_create_view(request):
+def form(request, category, method = 'add', key = None):
     if request.user.is_authenticated:
-        if request.method == 'POST':
-            form_data = {
-                'program': request.POST['Program'],
-                'info': {
-                    'Activity': request.POST.getlist('Activity[]'),
-                    'Indicator': request.POST.getlist('Indicator[]'),
-                    'Target': request.POST.getlist('Target[]'),
-                    'Accomplishment': request.POST.getlist('Accomplishment[]'),
-                    'Remarks': request.POST.getlist('Remarks[]')
-                }
+        
+        categories = {
+            'cpms': {
+                'model': CPMS,
+                'form': CPMSForm,
+                'html': 'cpms_form.html',
+                'key': 'id'
+            },
+            'examinee': {
+                'model': Examinees,
+                'form': ExamineesForm,
+                'html': 'examinees_form.html',
+                'key': 'no'
+            },
+            'ojt': {
+                'model': OJTInput,
+                'form': OJTInputForm,
+                'html': 'ojt_input_form.html',
+                'key': 'id'
             }
-            print(form_data)
-            form = CPMSForm(form_data)
-            if form.is_valid():
-                form.save()
-                return redirect('home')             
-        else:
-            form = CPMSForm()
-        return render(request, 'cpms_form.html', {'form': form})
-    else:
-        return redirect('login')
-
-# (Input Form) Examinee Data
-def examinees_create_view(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = ExamineesForm(request.POST)
-            if form.is_valid():
-                form.save()
-                return redirect('home')  
+        }
+        item = {'method': method, 'model': category}
+        target_record = None
+        if method == 'update':       
+            target_record = categories[category]['model'].objects.get(**{categories[category]['key']: key})
+            item['key'] = key            
+        
+        if category == 'cpms':
+            item['flattened_cpms'] = _flatten_cpms(target_record.__dict__)
+            
+        if request.method == "POST":
+            if category == 'cpms':                
+                form = CPMSForm({
+                    'program': request.POST['Program'],
+                    'info': {
+                        'Activity': request.POST.getlist('Activity[]'),
+                        'Indicator': request.POST.getlist('Indicator[]'),
+                        'Target': request.POST.getlist('Target[]'),
+                        'Accomplishment': request.POST.getlist('Accomplishment[]'),
+                        'Remarks': request.POST.getlist('Remarks[]')
+                    }
+                }, instance = target_record)       
             else:
-                print(form.errors)
-        else:
-            form = ExamineesForm()
-        return render(request, 'examinees_form.html', {'form': form})
-    else:
-        return redirect('login')
-
-
-# (Input Form) CPMS Data
-def ojt_input_create_view(request):
-    if request.user.is_authenticated:
-        if request.method == 'POST':
-            form = OJTInputForm(request.POST)
+                form = categories[category]['form'](request.POST, instance = target_record)
+            
             if form.is_valid():
                 form.save()
-                return redirect('home')  
+                return redirect('home')     
             else:
-                print(form.errors)
-        else:
-            form = OJTInputForm()
-        return render(request, 'ojt_input_form.html', {'form': form})
-    else:
-        return redirect('login')
+                print(form.errors)    
+        else:            
+            form = categories[category]['form'](request.POST or None, instance=target_record)
+        item['form'] = form
+        return render(request, categories[category]['html'], item)
+
+    messages.error("You need to login to access that")
+    return redirect('home') 
 
 # Dashboard page (dashboard.html)
 def dashboard(request):
