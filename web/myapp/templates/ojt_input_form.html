@@ -1,7 +1,9 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
+<div class="vh-100 w-100">
 <h1>Create OJT Input</h1>
+<div class="d-flex flex-row justify-content-center align-items-center">
 <form method="POST">
     {% csrf_token %}
     <div class="form-group">
@@ -91,7 +93,9 @@
     </div>
     <button type="submit" class="btn btn-primary">Submit</button>
 </form>
+</div>
 <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
+</div>
 <script>
     $(document).ready(function() {
       $('.datepicker').datepicker({

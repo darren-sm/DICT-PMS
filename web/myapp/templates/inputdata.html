@@ -1,10 +1,15 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
-<h1>Choose the type of data</h1>
   
-<a href="{% url 'form' 'cpms' 'add'%}" class="button">CPMS</a>
-<a href="{% url 'form' 'examinee' 'add'%}" class="button">Examinees</a>
-<a href="{% url 'form' 'ojt' 'add'%}" class="button">On the Job-Training</a>
+<div class="container vh-100 w-100">
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <h1>Choose the type of data</h1>
+
+    <a href="{% url 'form' 'cpms' 'add'%}" class="button">CPMS</a>
+    <a href="{% url 'form' 'examinee' 'add'%}" class="button">Examinees</a>
+    <a href="{% url 'form' 'ojt' 'add'%}" class="button">On the Job-Training</a>
+</div>
+</div>
 
 {% endblock %}

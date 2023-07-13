@@ -1,6 +1,7 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
+    <div class="d-flex justify-contents-center align-items-center flex-column w-100 vh-100">
     <h1 style="text-transform: capitalize;">{{method}} {{ model }}</h1>
     <form method="POST">
         {% csrf_token %}
@@ -70,6 +71,7 @@
     </form>
     
     <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
+    </div>
     <script>
         $(document).ready(function() {
           $('.datepicker').datepicker({
