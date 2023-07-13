@@ -3,8 +3,8 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CPMSForm, ExamineesForm, OJTInputForm
 from .models import CPMS, Examinees, OJTInput
+import base64
 
-# Home View (index.html)
 def _flatten_cpms(cpms_data):
     bar = []
     for i in range(len(cpms_data['info']['Activity'])):
@@ -23,6 +23,7 @@ def _flatten_cpms(cpms_data):
         bar.append(foo)
     return bar
 
+# Home View (index.html)
 def home(request):
     if request.user.is_authenticated:
         cpms_data = [_flatten_cpms(obj.__dict__) for obj in CPMS.objects.all()]
@@ -70,7 +71,7 @@ def inputdata(request):
 
 
 # (Input Form) CPMS Data
-def form(request, category, method = 'add', key = None):
+def form(request, category, method = 'add', hashed_id = None):
     if request.user.is_authenticated:
         
         categories = {
@@ -96,8 +97,9 @@ def form(request, category, method = 'add', key = None):
         item = {'method': method, 'model': category}
         target_record = None
         if method == 'update':       
-            target_record = categories[category]['model'].objects.get(**{categories[category]['key']: key})
-            item['key'] = key            
+            id = base64.b64decode(hashed_id).decode('utf-8').replace("dict-", "")
+            target_record = categories[category]['model'].objects.get(**{categories[category]['key']: id})
+            item['key'] = id            
         
             if category == 'cpms':
                 item['flattened_cpms'] = _flatten_cpms(target_record.__dict__)
@@ -145,7 +147,7 @@ def report(request):
     return redirect('login')
 
 
-def record(request, category, primary_key):
+def record(request, category, hashed_id):
     if request.user.is_authenticated:
         categories = {
             'cpms': {
@@ -167,7 +169,8 @@ def record(request, category, primary_key):
                 'keys': ['province', 'category', 'suc', 'duration', 'school_address', 'representative', 'representative_contact', 'student_name', 'sex', 'student_contact', 'start_date', 'end_date', 'mode', 'resume', 'endorsement', 'moa', 'remarks']
                 }
         }
-        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: primary_key})
+        id = base64.b64decode(hashed_id).decode('utf-8').replace("dict-", "")
+        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: id})
         if category == "cpms":
             flattened_cpms = _flatten_cpms(target_record.__dict__)
         return render(request, 'record.html', 
@@ -181,7 +184,7 @@ def record(request, category, primary_key):
     return redirect('login')
 
 
-def delete_record(request, category, primary_key):
+def delete_record(request, category, hashed_id):
     if request.user.is_authenticated:
         categories = {
             'cpms': {
@@ -197,7 +200,8 @@ def delete_record(request, category, primary_key):
                 'selector': 'id',
                 }
         }
-        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: primary_key})
+        id = base64.b64decode(hashed_id).decode('utf-8').replace("dict-", "")
+        target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: id})
         target_record.delete()
         messages.success(request, "Record deleted succesfully")
         return redirect('home')

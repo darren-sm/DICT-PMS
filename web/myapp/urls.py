@@ -9,8 +9,8 @@ urlpatterns = [
     path('dashboard/', views.dashboard, name='dashboard'),
     path('report/', views.report, name='report'),
     path('form/', views.inputdata, name='inputdata'), 
-    path('record/<category>/<primary_key>', views.record, name='record'),
-    path('delete_record/<category>/<primary_key>', views.delete_record, name='delete_record'),
+    path('record/<category>/<str:hashed_id>', views.record, name='record'),
+    path('delete_record/<category>/<str:hashed_id>', views.delete_record, name='delete_record'),
     path('<category>/<method>', views.form, name='form'),
-    path('<category>/<method>/<key>', views.form, name='form')
+    path('<category>/<method>/<str:hashed_id>', views.form, name='form')
 ]
