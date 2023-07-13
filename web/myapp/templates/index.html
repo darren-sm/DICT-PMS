@@ -41,7 +41,7 @@
 <div>
 <h1> Examinees Data </h1>
 
-<table class="table table-hover">
+<table class="table table-striped" id="examineetable">
     <thead>
       <tr>
         <th class='text-center' scope="col">No.</th>
@@ -83,7 +83,7 @@
 <div>
 <h1> OJT Input Data Data </h1>
 <div style="overflow-x: scroll">
-<table class="table table-hover">
+<table class="table table-striped" id="ojttable">
     <thead>
       <tr>
         <th class='text-center' scope="col">ID.</th>
@@ -139,5 +139,9 @@
 </div>
 </div>
 
+<script>
+  let table = new DataTable('#ojttable');
+  let table1 = new DataTable('#examineetable');
+</script>
 
 {% endblock %}
