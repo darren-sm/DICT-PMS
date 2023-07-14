@@ -51,27 +51,27 @@
                 <img src="{% static 'dict-flex.png' %}" style="height: 70px; width: 150px;">
             </div>
             <ul class="list-group">
-                <a class="btn btn-primary d-flex align-items-center" href="{% url 'home' %}">
+                <a class="btn btn-primary d-flex align-items-center {% if request.path == '/' %}active{% endif %}" href="{% url 'home' %}">
                     <img src="{% static 'home.png' %}" style="height: 30px; width: 30px">
                     Home
                 </a>
-                <a class="btn btn-primary d-flex align-items-center" href="{% url 'dashboard' %}">
+                <a class="btn btn-primary d-flex align-items-center {% if request.path == '/dashboard/' %}active{% endif %}" href="{% url 'dashboard' %}">
                     <img src="{% static 'dashboard.png' %}" style="height: 30px; width: 30px">
                     Dashboard
                 </a>
-                <a class="btn btn-primary d-flex align-items-center" href="{% url 'inputdata' %}">
+                <a class="btn btn-primary d-flex align-items-center {% if 'add' in request.path or request.path == '/form/' %}active{% endif %}" href="{% url 'inputdata' %}">
                     <img src="{% static 'inputdata.png' %}" style="height: 30px; width: 30px">
                     Input Data
                 </a>
-                <a class="btn btn-primary d-flex align-items-center" href="{% url 'home' %}">
+                <a class="btn btn-primary d-flex align-items-center {% if request.path == '/logs/' %}active{% endif %}" href="{% url 'home' %}">
                     <img src="{% static 'logs.png' %}" style="height: 30px; width: 30px">
                     Logs
                 </a>
-                <a class="btn btn-primary d-flex align-items-center" href="{% url 'report' %}">
+                <a class="btn btn-primary d-flex align-items-center {% if request.path == '/report/' %}active{% endif %}" href="{% url 'report' %}">
                     <img src="{% static 'reports.png' %}" style="height: 30px; width: 30px">
                     Reports
                 </a>
-                <a class="btn btn-primary d-flex align-items-center" href="{% url 'home' %}">
+                <a class="btn btn-primary d-flex align-items-center {% if request.path == '/settings/' %}active{% endif %}" href="{% url 'home' %}">
                     <img src="{% static 'settings.png' %}" style="height: 30px; width: 30px">
                     Settings
                 </a>
