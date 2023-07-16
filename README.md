@@ -19,42 +19,25 @@ Steps:
 
     `mkdir data data/postgres data/grafana data/pgadmin`
 
-  - Build 
+  - Build and run the project
 
-    `docker compose build`
+    - `docker compose build`
+    - `docker compose up -d`
 
-  - Run the project
+  - Perform the Migration and Ingest the data
 
-    `docker compose up -d`
-
-  - Perform the Migration
-
-    `docker ps`
-
-    - Get the container id of the service with the name "system" (e.g. `9040225fb1aa`)
-
-    - Open the container with bash
-
-      `docker exec -it 9040225fb1aa bash`
-
-    - Make migrations
-
-      `python manage.py makemigrations myapp`
-
-    - Create the tables
-
-      `python manage.py migrate myapp`
-
-    - Exit from the container
-
-      `exit`
-
-  - Stop the app
-
-    `docker compose down`
+    ```bash
+    docker exec -it system bash -c "python manage.py makemigrations myapp && python manage.py migrate myapp" 
+    docker cp ./setup/ system:/tmp
+    docker exec -it system bash -c "cd /tmp/setup && python setup.py"
+    ```
 
 - Run the project
 
   `docker compose up`
 
   > Stop with CTRL + C
+
+- Stop the app
+
+  `docker compose down`
