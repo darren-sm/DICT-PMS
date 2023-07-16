@@ -3,7 +3,7 @@ from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
 from .forms import CPMSForm, ExamineesForm, OJTInputForm
 from .models import CPMS, Examinees, OJTInput
-import base64
+from cryptography.fernet import Fernet
 
 def _flatten_cpms(cpms_data):
     bar = []
@@ -22,6 +22,11 @@ def _flatten_cpms(cpms_data):
         foo.Remark = cpms_data['info']['Remarks'][i]
         bar.append(foo)
     return bar
+
+def _decrypt(encoded_string):
+    key = Fernet(b'v06isf7eUcEMAhUnM6bZsMVO0puqpoxNvT90MSMhXSs=')
+    decrypted_message = key.decrypt(encoded_string).decode()
+    return decrypted_message
 
 # Home View (index.html)
 def home(request):
@@ -97,7 +102,7 @@ def form(request, category, method = 'add', hashed_id = None):
         item = {'method': method, 'model': category}
         target_record = None
         if method == 'update':       
-            id = base64.b64decode(hashed_id).decode('utf-8').replace("dict", "")
+            id = _decrypt(hashed_id)
             target_record = categories[category]['model'].objects.get(**{categories[category]['key']: id})
             item['key'] = id            
         
@@ -169,7 +174,7 @@ def record(request, category, hashed_id):
                 'keys': ['province', 'category', 'suc', 'duration', 'school_address', 'representative', 'representative_contact', 'student_name', 'sex', 'student_contact', 'start_date', 'end_date', 'mode', 'resume', 'endorsement', 'moa', 'remarks']
                 }
         }
-        id = base64.b64decode(hashed_id).decode('utf-8').replace("dict", "")
+        id = _decrypt(hashed_id)
         target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: id})
         if category == "cpms":
             flattened_cpms = _flatten_cpms(target_record.__dict__)
@@ -200,7 +205,7 @@ def delete_record(request, category, hashed_id):
                 'selector': 'id',
                 }
         }
-        id = base64.b64decode(hashed_id).decode('utf-8').replace("dict", "")
+        id = _decrypt(hashed_id)
         target_record = categories[category]['class'].objects.get(**{categories[category]['selector']: id})
         target_record.delete()
         messages.success(request, "Record deleted succesfully")
