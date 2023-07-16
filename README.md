@@ -1,5 +1,7 @@
 # DICT Project Management System
 
+![Project Demo](docs/demo.gif)
+
 ### Setup
 
 Prerequisites:
@@ -35,9 +37,3 @@ Steps:
 - Run the project
 
   `docker compose up`
-
-  > Stop with CTRL + C
-
-- Stop the app
-
-  `docker compose down`
