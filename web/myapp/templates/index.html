@@ -25,8 +25,8 @@
           <td class='text-center'> <a href="{% url 'record' 'cpms' record.id|encode_id %}">{{ record.Program }}</a> </td>
           <td class='text-center'> {{ record.Activty }} </td>
           <td class='text-center'> {{ record.Indicator }} </td>
-          <td class='text-center'> {{ record.Target }} </td>
-          <td class='text-center'> {{ record.Accomplishment }} </td>
+          <td class='text-center'> {% if record.Target %} {{ record.Target }} {% endif %} </td>
+          <td class='text-center'> {% if record.Accomplishment %} {{ record.Accomplishment }} {% endif %} </td>
           <td class='text-center'> {{ record.Remark }} </td>
           <br>
         </tr>
