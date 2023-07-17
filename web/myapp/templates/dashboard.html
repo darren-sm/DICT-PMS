@@ -1,14 +1,6 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
-{% comment %} 
-<style>
-      iframe {
-        width: calc(33.33% - 20px); /* Calculate width for each item */
-        height: calc(40vh - 50px); /* Calculate width for each item */
-        border: none;
-      }
-</style>
 <h1>Dashboard</h1>
 <iframe style="width: 100%; height: 99vh; display: block; border: none;" src="http://localhost:3000/d/f5459430-3c95-47bd-bbc9-e5b49bb087ba/dict?orgId=1&from=1654012800000&to=1688140799000&theme=light"></iframe>
 {% endblock %}

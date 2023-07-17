@@ -19,7 +19,7 @@ Steps:
 
   - Navigate to the project directory and create data folders for volumes
 
-    `mkdir data data/postgres data/grafana data/pgadmin`
+    `mkdir data/postgres data/pgadmin`
 
   - Build and run the project
 
@@ -33,6 +33,8 @@ Steps:
     docker cp ./setup/ system:/tmp
     docker exec -it system bash -c "cd /tmp/setup && python setup.py"
     ```
+
+    > Note: You might need to login to the grafana (port 3000) to view the dashboard
 
 - Run the project
 
