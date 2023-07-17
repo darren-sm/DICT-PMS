@@ -1,37 +1,14 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
+{% comment %} 
 <style>
-    .card{
-        height: 200px;
-        width: 250px;
-        border-radius: 15px;
-        box-shadow: 0px 5px 10px 0px #888888;
-    }
+      iframe {
+        width: calc(33.33% - 20px); /* Calculate width for each item */
+        height: calc(40vh - 50px); /* Calculate width for each item */
+        border: none;
+      }
 </style>
-
-<div class="container vh-100 w-100 d-flex flex-column justify-content-center align-items-center">
-<div class="row m-4 gx-3 justify-content-evenly">
-    <div class="card col-lg-3 col-md-6">
-        <iframe src="http://localhost:3000/d-solo/e949eea6-b7ee-4817-8157-b99293e4d0c5/new-dashboard?orgId=1&from=1688696477183&to=1688718077183&theme=light&panelId=1" class="w-100 h-100 d-flex justify-content-center align-items-center"></iframe>
-    </div>
-    <div class="card col-lg-3 col-md-6">
-        <h1>Task Count</h1>
-    </div>
-    <div class="card col-lg-3 col-md-6">
-        <h1>Task Count</h1>
-    </div>
-    <div class="card col-lg-3 col-md-6">
-        <h1>Task Count</h1>
-    </div>
-</div>
-<div class="row m-4 gx-5 justify-content-evenly">
-    <div class="card col-md-6" style="width: 350px; height: 300px;">
-        <h1>Chart</h1>
-    </div>
-    <div class="card col-md-6" style="width: 350px; height: 300px;">
-        <h1>Chart</h1>
-    </div>    
-</div>
-</div>
+<h1>Dashboard</h1>
+<iframe style="width: 100%; height: 99vh; display: block; border: none;" src="http://localhost:3000/d/f5459430-3c95-47bd-bbc9-e5b49bb087ba/dict?orgId=1&from=1654012800000&to=1688140799000&theme=light"></iframe>
 {% endblock %}
