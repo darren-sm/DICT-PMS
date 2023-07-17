@@ -1,5 +1,6 @@
 venv
-data
+data/pgadmin
+data/postgres
 web/web/__pycache__
 web/myapp/__pycache__
 web/myapp/migrations
