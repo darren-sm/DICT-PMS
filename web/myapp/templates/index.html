@@ -2,8 +2,18 @@
 {% load custom_filter %}
 
 {% block authenticated_content %}
-<div class="vh-100 w-100 d-flex justify-content-between flex-column p-3" style="overflow-x: hidden; row-gap: 100px">
+<div class="vh-100 w-100 d-flex flex-column p-3" style="overflow-x: hidden; row-gap: 100px">
+
 <div>
+    <h1>Table Selection</h1>
+    <select id="tableSelect" class="form-select mb-3" onchange="selectTable()">
+      <option value="cpms">CPMS Data</option>
+      <option value="examinee">Examinees Data</option>
+      <option value="ojt">OJT Input Data</option>
+    </select>
+</div>
+
+<div id="cpmsTable">
 <h1> CPMS Data </h1>
 
 <table class="table table-hover">
@@ -28,7 +38,6 @@
           <td class='text-center'> {% if record.Target %} {{ record.Target }} {% endif %} </td>
           <td class='text-center'> {% if record.Accomplishment %} {{ record.Accomplishment }} {% endif %} </td>
           <td class='text-center'> {{ record.Remark }} </td>
-          <br>
         </tr>
         {% endfor %}
     {% endfor %}
@@ -38,7 +47,7 @@
 <a class="btn btn-success"  href="{% url 'form' 'cpms' 'add' %}" role="button">Add new CPMS data</a>
 </div>
 
-<div>
+<div id="examineeTable" style="display: none;">
 <h1> Examinees Data </h1>
 
 <table class="table table-striped" id="examineetable">
@@ -80,7 +89,7 @@
 <a class="btn btn-success"  href="{% url 'form' 'examinee' 'add'%}" role="button">Add new Examinee data</a>
 </div>
 
-<div>
+<div id="ojtTable" style="display: none;">
 <h1> OJT Input Data Data </h1>
 <div style="overflow-x: scroll">
 <table class="table table-striped" id="ojttable">
@@ -142,6 +151,25 @@
 <script>
   let table = new DataTable('#ojttable');
   let table1 = new DataTable('#examineetable');
+
+    function selectTable() {
+        var selectedTable = document.getElementById("tableSelect").value;
+
+        if (selectedTable === "cpms") {
+            document.getElementById("cpmsTable").style.display = "block";
+            document.getElementById("examineeTable").style.display = "none";
+            document.getElementById("ojtTable").style.display = "none";
+        } else if (selectedTable === "examinee") {
+            document.getElementById("cpmsTable").style.display = "none";
+            document.getElementById("examineeTable").style.display = "block";
+            document.getElementById("ojtTable").style.display = "none";
+        } else if (selectedTable === "ojt") {
+            document.getElementById("cpmsTable").style.display = "none";
+            document.getElementById("examineeTable").style.display = "none";
+            document.getElementById("ojtTable").style.display = "block";
+        }
+    }
 </script>
+
 
 {% endblock %}
