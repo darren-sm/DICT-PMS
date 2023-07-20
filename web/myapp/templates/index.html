@@ -14,13 +14,14 @@
 <div>
     <h1>Table Selection</h1>
     <select id="tableSelect" class="form-select mb-3" onchange="selectTable()">
-      <option value="cpms">CPMS Data</option>
       <option value="examinee">Examinees Data</option>
       <option value="ojt">OJT Input Data</option>
+      <option value="tmd">TMD Data</option>
+      <option value="epmd">EPMD Data</option>
     </select>
 </div>
 
-<div id="cpmsTable">
+{% comment %} <div id="cpmsTable">
 <h1> CPMS Data </h1>
 
 <table class="table table-hover">
@@ -52,11 +53,11 @@
     </tbody>
 </table>
 <a class="btn btn-success"  href="{% url 'form' 'cpms' 'add' %}" role="button">Add new CPMS data</a>
-</div>
+</div> {% endcomment %}
 
-<div id="examineeTable" style="display: none;">
+<div id="examineeTable">
 <h1> Examinees Data </h1>
-
+<p><strong>Count</strong>: {{examinees_len}} | <strong>Target</strong>: 500</p>
 <div style="overflow-x: scroll">
 <table class="table table-striped" id="examineetable">
     <thead>
@@ -99,7 +100,8 @@
 </div>
 
 <div id="ojtTable" style="display: none;">
-<h1> OJT Input Data Data </h1>
+<h1> OJT Input Data </h1>
+<p><strong>Count</strong>: {{ojt_len}} | <strong>Target</strong>: 500</p>
 <div style="overflow-x: scroll">
 <table class="table table-striped" id="ojttable">
     <thead>
@@ -151,32 +153,166 @@
     {% endif %}
     </tbody>
 </table>
-
 </div>
 <a class="btn btn-success"  href="{% url 'form' 'ojt' 'add'%}" role="button">Add new OJT Input</a>
 </div>
+
+
+<div id="tmdTable" style="display: none;">
+<h1> TMD Data </h1>
+<p><strong>Count</strong>: {{tmd_len}} | <strong>Target</strong>: 10</p>
+<div style="overflow-x: scroll">
+<table class="table table-striped" id="ojttable">
+    <thead>
+      <tr>
+        <th class='text-center' scope="col">ID</th>
+        <th class='text-center' scope="col">Province</th>
+        <th class='text-center' scope="col">Category</th>
+        <th class='text-center' scope="col">Title</th>
+        <th class='text-center' scope="col">Start Date</th>
+        <th class='text-center' scope="col">End Date</th>
+        <th class='text-center' scope="col">Start Time</th>
+        <th class='text-center' scope="col">End Time</th>
+        <th class='text-center' scope="col">Duration</th>
+        <th class='text-center' scope="col">Resource person</th>
+        <th class='text-center' scope="col">Facilitator</th>
+        <th class='text-center' scope="col">Female</th>
+        <th class='text-center' scope="col">Male</th>
+        <th class='text-center' scope="col">Cavite</th>
+        <th class='text-center' scope="col">Laguna</th>
+        <th class='text-center' scope="col">Batangas</th>
+        <th class='text-center' scope="col">Rizal</th>
+        <th class='text-center' scope="col">Quezon</th>
+        <th class='text-center' scope="col">Other</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if tmd_data %}
+        {% for tmd in tmd_data %}
+        <tr>
+            <td class='text-center'><a href="{% url 'record' 'tmd' tmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+            <td class='text-center'>{{ tmd.province }}</td>
+            <td class='text-center'>{{ tmd.category }}</td>
+            <td class='text-center'>{{ tmd.title }}</td>
+            <td class='text-center'>{{ tmd.start_date }}</td>
+            <td class='text-center'>{{ tmd.end_date }}</td>
+            <td class='text-center'>{{ tmd.start_time }}</td>
+            <td class='text-center'>{{ tmd.end_time }}</td>
+            <td class='text-center'>{{ tmd.duration }} hours</td>
+            <td class='text-center'>{{ tmd.resource_person }}</td>
+            <td class='text-center'>{{ tmd.facilitator }}</td>
+            <td class='text-center'>{{ tmd.female }}</td>
+            <td class='text-center'>{{ tmd.male }}</td>
+            <td class='text-center'>{{ tmd.cavite }}</td>
+            <td class='text-center'>{{ tmd.laguna }}</td>
+            <td class='text-center'>{{ tmd.batangas }}</td>
+            <td class='text-center'>{{ tmd.rizal }}</td>
+            <td class='text-center'>{{ tmd.quezon }}</td>
+            <td class='text-center'>{{ tmd.other }}</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<a class="btn btn-success"  href="{% url 'form' 'tmd' 'add'%}" role="button">Add new TMD Input</a>
+</div>
+
+
+<div id="epmdTable" style="display: none;">
+<h1> EPMD Data </h1>
+<p><strong>Count</strong>: {{epmd_len}} | <strong>Target</strong>: 500</p>
+<div style="overflow-x: scroll">
+<table class="table table-striped" id="epmdtable">
+    <thead>
+      <tr>
+        <th class='text-center' scope="col">Id</th>
+        <th class='text-center' scope="col">Province</th>
+        <th class='text-center' scope="col">Category</th>
+        <th class='text-center' scope="col">Name</th>
+        <th class='text-center' scope="col">Address</th>
+        <th class='text-center' scope="col">Representative</th>
+        <th class='text-center' scope="col">Email</th>
+        <th class='text-center' scope="col">Number</th>
+        <th class='text-center' scope="col">Date</th>
+        <th class='text-center' scope="col">MoU</th>
+        <th class='text-center' scope="col">LOI</th>
+        <th class='text-center' scope="col">Signatory</th>
+        <th class='text-center' scope="col">Designation</th>
+        <th class='text-center' scope="col">Remarks</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if epmd_data %}
+        {% for epmd in epmd_data %}
+        <tr>
+            <td class='text-center'><a href="{% url 'record' 'epmd' epmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+            <td class='text-center'>{{ epmd.province }}</td>
+            <td class='text-center'>{{ epmd.category }}</td>
+            <td class='text-center'>{{ epmd.name }}</td>
+            <td class='text-center'>{{ epmd.address }} hours</td>
+            <td class='text-center'>{{ epmd.representative }}</td>
+            <td class='text-center'>{{ epmd.email }}</td>
+            <td class='text-center'>{{ epmd.number }}</td>
+            <td class='text-center'>{{ epmd.date }}</td>
+            <td class='text-center'>{{ epmd.mou }}</td>
+            <td class='text-center'>{{ epmd.loi }}</td>
+            <td class='text-center'>{{ epmd.signatory }}</td>
+            <td class='text-center'>{{ epmd.designation }}</td>
+            <td class='text-center'>{{ epmd.remarks }}</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+</div>
+<a class="btn btn-success"  href="{% url 'form' 'epmd' 'add'%}" role="button">Add new EPMD Input</a>
+</div>
+
+
+
 </div>
 
 <script>
   let table = new DataTable('#ojttable');
   let table1 = new DataTable('#examineetable');
+  let table2 = new DataTable('#tmdtable');
+  let table3 = new DataTable('#epmdtable');
 
     function selectTable() {
         var selectedTable = document.getElementById("tableSelect").value;
 
         if (selectedTable === "cpms") {
-            document.getElementById("cpmsTable").style.display = "block";
+            {% comment %} document.getElementById("cpmsTable").style.display = "block"; {% endcomment %}
             document.getElementById("examineeTable").style.display = "none";
             document.getElementById("ojtTable").style.display = "none";
+            document.getElementById("tmdTable").style.display = "none";
+            document.getElementById("epmdTable").style.display = "none";
         } else if (selectedTable === "examinee") {
-            document.getElementById("cpmsTable").style.display = "none";
+            {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
             document.getElementById("examineeTable").style.display = "block";
             document.getElementById("ojtTable").style.display = "none";
+            document.getElementById("tmdTable").style.display = "none";
+            document.getElementById("epmdTable").style.display = "none";
         } else if (selectedTable === "ojt") {
-            document.getElementById("cpmsTable").style.display = "none";
+            {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
             document.getElementById("examineeTable").style.display = "none";
             document.getElementById("ojtTable").style.display = "block";
-        }
+            document.getElementById("tmdTable").style.display = "none";
+            document.getElementById("epmdTable").style.display = "none";
+        } else if (selectedTable === "tmd") {
+            {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
+            document.getElementById("examineeTable").style.display = "none";
+            document.getElementById("ojtTable").style.display = "none";
+            document.getElementById("tmdTable").style.display = "block";
+            document.getElementById("epmdTable").style.display = "none";
+      } else if (selectedTable === "epmd") {
+          {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
+            document.getElementById("examineeTable").style.display = "none";
+            document.getElementById("ojtTable").style.display = "none";
+            document.getElementById("tmdTable").style.display = "none";
+            document.getElementById("epmdTable").style.display = "block";
+      }
     }
 </script>
 

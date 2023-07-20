@@ -1,8 +1,8 @@
 from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.contrib import messages
-from .forms import CPMSForm, ExamineesForm, OJTInputForm
-from .models import CPMS, Examinees, OJTInput
+from .forms import CPMSForm, ExamineesForm, OJTInputForm, tmdForm, epmdForm
+from .models import CPMS, Examinees, OJTInput, epmd, tmd
 from cryptography.fernet import Fernet
 
 def _flatten_cpms(cpms_data):
@@ -34,10 +34,19 @@ def home(request):
         cpms_data = [_flatten_cpms(obj.__dict__) for obj in CPMS.objects.all()]
         examinees_data = Examinees.objects.all()
         ojt_data = OJTInput.objects.all()
+        tmd_data = tmd.objects.all()
+        epmd_data = epmd.objects.all()
         return render(request, 'index.html', {
             'cpms_data': cpms_data,
             'examinees_data': examinees_data,
-            'ojt_data': ojt_data
+            'ojt_data': ojt_data,
+            'tmd_data': tmd_data,
+            'epmd_data': epmd_data,
+            'cpms_len': len(cpms_data),
+            'examinees_len': len(examinees_data),
+            'ojt_len': len(ojt_data),
+            'tmd_len': len(tmd_data),
+            'epmd_len': len(epmd_data)
         })
     else:
         return redirect('login')
@@ -96,6 +105,18 @@ def form(request, category, method = 'add', hashed_id = None):
                 'model': OJTInput,
                 'form': OJTInputForm,
                 'html': 'ojt_input_form.html',
+                'key': 'id'
+            },
+            'tmd': {
+                'model': tmd,
+                'form': tmdForm,
+                'html': 'tmd_form.html',
+                'key': 'id'
+            },
+            'epmd': {
+                'model': epmd,
+                'form': epmdForm,
+                'html': 'epmd_form.html',
                 'key': 'id'
             }
         }
@@ -172,6 +193,18 @@ def record(request, category, hashed_id):
                 'selector': 'id',
                 'name': 'OJT Input',
                 'keys': ['province', 'category', 'suc', 'duration', 'school_address', 'representative', 'representative_contact', 'student_name', 'sex', 'student_contact', 'start_date', 'end_date', 'mode', 'resume', 'endorsement', 'moa', 'remarks']
+                },
+            'tmd': {
+                'class': tmd, 
+                'selector': 'id',
+                'name': 'TMD',
+                'keys': ["province", "category", "title", "start_date", "end_date", "start_time", "end_time", "duration", "resource_person", "facilitator", "female", "male", "cavite", "laguna", "batangas", "rizal", "quezon", "other"]
+                },
+            'epmd': {
+                'class': epmd, 
+                'selector': 'id',
+                'name': 'EPMD',
+                'keys': ["province", "category", "name", "address", "representative", "email", "number", "date", "mou", "loi", "signatory", "designation", "remarks"]
                 }
         }
         id = _decrypt(hashed_id)
@@ -183,7 +216,7 @@ def record(request, category, hashed_id):
                        'name': categories[category]['name'],
                        'flattened_cpms': flattened_cpms if category == "cpms" else None,
                        'category':category,
-                       'key': target_record.id if category in ('cpms', 'ojt') else target_record.no,
+                       'key': target_record.id if category in ('cpms', 'ojt', 'epmd', 'tmd') else target_record.no,
                        'keys': categories[category]['keys']
                        })
     return redirect('login')
@@ -202,6 +235,14 @@ def delete_record(request, category, hashed_id):
                 },
             'ojt': {
                 'class': OJTInput, 
+                'selector': 'id',
+                },
+            'tmd': {
+                'class': tmd, 
+                'selector': 'id',
+                },
+            'epmd': {
+                'class': epmd, 
                 'selector': 'id',
                 }
         }

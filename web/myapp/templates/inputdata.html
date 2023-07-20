@@ -18,11 +18,12 @@
     <h1>Choose the type of data</h1>
 
     <div class="d-flex m-3">
-        <a href="{% url 'form' 'cpms' 'add'%}" class="btn btn-info m-2">CPMS</a>
-        <a href="{% url 'form' 'examinee' 'add'%}" class="btn btn-info m-2">Examinees</a>
-        <a href="{% url 'form' 'ojt' 'add'%}" class="btn btn-info m-2">On the Job-Training</a>
+    {% comment %} <a href="{% url 'form' 'cpms' 'add'%}" class="button">CPMS</a> {% endcomment %}
+    <a href="{% url 'form' 'examinee' 'add'%}" class="btn btn-info m-2">Examinees</a>
+    <a href="{% url 'form' 'ojt' 'add'%}" class="btn btn-info m-2">On the Job-Training</a>
+    <a href="{% url 'form' 'tmd' 'add'%}" class="btn btn-info m-2">TMD</a>
+    <a href="{% url 'form' 'epmd' 'add'%}" class="btn btn-info m-2">EPMD</a>
     </div>
-
 </div>
 </div>
 

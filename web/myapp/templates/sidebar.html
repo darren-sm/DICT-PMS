@@ -63,7 +63,7 @@
                     <img src="{% static 'inputdata.png' %}" style="height: 30px; width: 30px">
                     Input Data
                 </a>
-                <a class="btn btn-primary d-flex align-items-center {% if request.path == '/logs/' %}active{% endif %}" href="{% url 'home' %}">
+                {% comment %} <a class="btn btn-primary d-flex align-items-center {% if request.path == '/logs/' %}active{% endif %}" href="{% url 'home' %}">
                     <img src="{% static 'logs.png' %}" style="height: 30px; width: 30px">
                     Logs
                 </a>
@@ -74,7 +74,7 @@
                 <a class="btn btn-primary d-flex align-items-center {% if request.path == '/settings/' %}active{% endif %}" href="{% url 'home' %}">
                     <img src="{% static 'settings.png' %}" style="height: 30px; width: 30px">
                     Settings
-                </a>
+                </a> {% endcomment %}
             </ul>
         </div>
         <div class="mx-auto pb-3">

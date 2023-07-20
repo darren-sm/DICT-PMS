@@ -110,3 +110,95 @@ class OJTInput(models.Model):
     
     def __str__(self) -> str:
         return f"{self.student_name} ({self.suc})"
+    
+#model for TMD
+class tmd(models.Model):
+    PROVINCE_CHOICES = [
+        ('Cavite', 'Cavite'),
+        ('Laguna', 'Laguna'),
+        ('Batangas', 'Batangas'),
+        ('Rizal', 'Rizal'),
+        ('Quezon', 'Quezon'),
+        ('RO', 'RO'),
+    ]
+
+    CATEGORY_CHOICES = [
+        ('ToT', 'ToT'),
+        ('Digital Governance and Management', 'Digital Governance and Management'),
+        ('Digital Transformative Technologies', 'Digital Transformative Technologies'),
+        ('Cyber Security', 'Cyber Security'),
+    ]
+
+    SEX_CHOICES = [
+        ('M', 'Male'),
+        ('F', 'Female'),
+    ]
+
+    MODE_CHOICES = [
+        ('Physical Reporting', 'Physical Reporting'),
+        ('Online', 'Online'),
+        ('Hybrid', 'Hybrid'),
+    ]
+
+    id = models.AutoField(primary_key=True)
+    province = models.CharField(max_length=30, choices=PROVINCE_CHOICES)
+    category = models.CharField(max_length=255, choices=CATEGORY_CHOICES)
+    title = models.CharField(max_length=255)
+    start_date = models.DateField()
+    end_date = models.DateField()
+    start_time = models.CharField(max_length=20, blank = True)
+    end_time = models.CharField(max_length=20, blank = True)
+    duration = models.IntegerField()
+    resource_person = models.CharField(max_length=255, blank=True)
+    facilitator = models.CharField(max_length=255, blank=True)
+    female = models.IntegerField(default=0)
+    male = models.IntegerField(default=0)
+    cavite = models.IntegerField(default=0)
+    laguna = models.IntegerField(default=0)
+    batangas = models.IntegerField(default=0)
+    rizal = models.IntegerField(default=0)
+    quezon = models.IntegerField(default=0)
+    other = models.IntegerField(default=0)
+    
+    
+    def __str__(self) -> str:
+        return f"[{self.category}] {self.title}"
+    
+#model for EPMD
+class epmd(models.Model):
+    PROVINCE_CHOICES = [
+        ('Cavite', 'Cavite'),
+        ('Laguna', 'Laguna'),
+        ('Batangas', 'Batangas'),
+        ('Rizal', 'Rizal'),
+        ('Quezon', 'Quezon'),
+        ('RO', 'RO'),
+    ]
+
+    CATEGORY_CHOICES = [
+        ('NGA', 'NGA'),
+        ('LGU', 'LGU'),
+        ('Industry', 'Industry'),
+        ('SUC', 'SUC'),
+        ('Training Institution', 'Training Institution'),
+    ]
+    
+
+
+    id = models.AutoField(primary_key=True)
+    province = models.CharField(max_length=30, choices=PROVINCE_CHOICES)
+    category = models.CharField(max_length=255, choices=CATEGORY_CHOICES)
+    name = models.CharField(max_length=255)
+    address = models.CharField(max_length=255, blank=True)
+    representative = models.CharField(max_length=255, blank=True)
+    email = models.CharField(max_length=255, blank=True)
+    number = models.CharField(max_length=255, blank=True)
+    date = models.DateField()
+    mou = models.BooleanField()
+    loi = models.BooleanField()
+    signatory = models.CharField(max_length=255, blank=True)
+    designation = models.CharField(max_length=255, blank=True)
+    remarks = models.CharField(max_length=255, blank=True)
+    
+    def __str__(self) -> str:
+        return f"[{self.batch} / {self.province}] {self.student_name} "

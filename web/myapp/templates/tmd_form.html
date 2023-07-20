@@ -1,0 +1,108 @@
+{% extends 'base.html' %}
+
+{% block authenticated_content %}
+    <div class="d-flex justify-contents-center align-items-center flex-column w-100 vh-100">
+    <h1 style="text-transform: capitalize;">{{method}} {{ model }}</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-group">
+            <label for="province">Province</label>
+            <select class="form-control" name="province">
+                <option>Batangas</option>
+                <option>Cavite</option>
+                <option>Laguna</option>
+                <option>Rizal</option>
+                <option>Quezon</option>
+                <option>RO</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="component">Category</label>
+            <select class="form-control" name="category">
+                <option>ToT</option>
+                <option>Digital Governance and Management</option>
+                <option>Digital Transformative Technologies</option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="title">Title</label>
+            <input type="text" class="form-control" name="title" value="{{form.title.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="start_date">Start Date</label>
+            <input type="text" class="form-control datepicker" name="start_date" placeholder="Select a date" value="{{form.start_date.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="end_date">End Date</label>
+            <input type="text" class="form-control datepicker" name="end_date" placeholder="Select a date" value="{{form.end_date.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="start_time">Start Time</label>
+            <input type="text" class="form-control" name="start_time" value="{{form.start_time.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="end_time">End Time</label>
+            <input type="text" class="form-control" name="end_time" value="{{form.end_time.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="duration">Duration</label>
+            <input type="Number" class="form-control" name="duration" value="{{form.duration.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="resource_person">Resource Person</label>
+            <input type="text" class="form-control" name="resource_person" value="{{form.resource_person.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="facilitator">Facilitator</label>
+            <input type="text" class="form-control" name="facilitator" value="{{form.facilitator.value|default_if_none:'' }}">
+        </div>
+        <p>Sex Count</p>
+        <div class="form-group">
+            <label for="female">Female</label>
+            <input type="Number" class="form-control" name="female" value="{{form.female.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="male">Male</label>
+            <input type="Number" class="form-control" name="male" value="{{form.male.value|default_if_none:'' }}">
+        </div>
+        <p>Province Count</p>
+        <div class="form-group">
+            <label for="cavite">Cavite</label>
+            <input type="Number" class="form-control" name="cavite" value="{{form.cavite.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="laguna">Laguna</label>
+            <input type="Number" class="form-control" name="laguna" value="{{form.laguna.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="batangas">Batangas</label>
+            <input type="Number" class="form-control" name="batangas" value="{{form.batangas.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="rizal">Rizal</label>
+            <input type="Number" class="form-control" name="rizal" value="{{form.rizal.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="quezon">Quezon</label>
+            <input type="Number" class="form-control" name="quezon" value="{{form.quezon.value|default_if_none:'' }}">
+        </div>
+        <div class="form-group">
+            <label for="other">Other</label>
+            <input type="text" class="form-control" name="other" value="{{form.other.value|default_if_none:'' }}">
+        </div>
+        
+        
+        <button type="submit" class="btn btn-primary">Submit</button>
+    </form>
+    
+    <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
+    </div>
+    <script>
+        $(document).ready(function() {
+          $('.datepicker').datepicker({
+            format: "MM dd, yyyy",
+          });
+        });
+    </script>
+      
+{% endblock %}
