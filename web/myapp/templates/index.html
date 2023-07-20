@@ -2,6 +2,13 @@
 {% load custom_filter %}
 
 {% block authenticated_content %}
+
+<style>
+  h1, option{
+    font-family: 'Bellota Text';
+  }
+</style>
+
 <div class="vh-100 w-100 d-flex flex-column p-3" style="overflow-x: hidden; row-gap: 100px">
 
 <div>
@@ -50,6 +57,7 @@
 <div id="examineeTable" style="display: none;">
 <h1> Examinees Data </h1>
 
+<div style="overflow-x: scroll">
 <table class="table table-striped" id="examineetable">
     <thead>
       <tr>
@@ -86,6 +94,7 @@
     {% endif %}
     </tbody>
 </table>
+</div>
 <a class="btn btn-success"  href="{% url 'form' 'examinee' 'add'%}" role="button">Add new Examinee data</a>
 </div>
 
