@@ -70,7 +70,7 @@
     }
 </script>
 
-<h1 class="w-100 d-flex justify-content-center" style="text-transform: capitalize;">{{method}} CPMS</h1>
+<h1 class="w-100 d-flex justify-content-center" style="text-transform: capitalize; font-family: 'Bellota Text'">{{method}} CPMS</h1>
 
 <div class="w-100 vh-100 p-3">
 <form method="POST">
@@ -140,13 +140,14 @@
 </table>
 
 <br>
-<button type="button" onclick="addRow()" class="add-button">Add</button>
+<button type="button" onclick="addRow()" class="btn btn-success add-button">Add</button>
 <br><br>
 
-<button type="submit" class="btn btn-primary">Submit</button>
+<button type="submit" class="btn btn-success">Submit</button>
     
 </form>
 <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
+<br><br>
 
 </div>
 {% endblock %}
