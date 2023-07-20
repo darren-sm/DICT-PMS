@@ -1,14 +1,28 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
+
+<style>
+    h1{
+        font-family: 'Bellota Text';
+        font-size: 2vw;
+    }
+
+    .btn{
+        color: white;
+    }
+</style>
   
-<div class="container vh-100 w-100">
+<div class="container vh-100 w-100 d-flex justify-content-center">
 <div class="d-flex flex-column justify-content-center align-items-center">
     <h1>Choose the type of data</h1>
 
-    <a href="{% url 'form' 'cpms' 'add'%}" class="button">CPMS</a>
-    <a href="{% url 'form' 'examinee' 'add'%}" class="button">Examinees</a>
-    <a href="{% url 'form' 'ojt' 'add'%}" class="button">On the Job-Training</a>
+    <div class="d-flex m-3">
+        <a href="{% url 'form' 'cpms' 'add'%}" class="btn btn-info m-2">CPMS</a>
+        <a href="{% url 'form' 'examinee' 'add'%}" class="btn btn-info m-2">Examinees</a>
+        <a href="{% url 'form' 'ojt' 'add'%}" class="btn btn-info m-2">On the Job-Training</a>
+    </div>
+
 </div>
 </div>
 
