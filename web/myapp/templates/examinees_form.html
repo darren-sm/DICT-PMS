@@ -1,8 +1,10 @@
 {% extends 'base.html' %}
 
 {% block authenticated_content %}
-    <div class="d-flex justify-contents-center align-items-center flex-column w-100 vh-100">
-    <h1 style="text-transform: capitalize;">{{method}} {{ model }}</h1>
+    
+    <div class="vh-100 w-100 p-3">
+    <h1 style="text-transform: capitalize; font-family: 'Bellota Text'">{{method}} {{ model }}</h1>
+    <div class="d-flex justify-content-center align-items-center flex-column">
     <form method="POST">
         {% csrf_token %}
         <div class="form-group">
@@ -67,10 +69,14 @@
             <label for="batch">Batch</label>
             <input type="text" class="form-control" name="batch" value="{{form.batch.value|default_if_none:'' }}" >
         </div>
-        <button type="submit" class="btn btn-primary">Submit</button>
+
+        <div class="d-flex justify-content-center align-items-center" style="margin-top: 10px; column-gap: 5px;">
+            <button type="submit" class="btn btn-success">Submit</button>
+            <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
+        </div>
     </form>
     
-    <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
+    </div>
     </div>
     <script>
         $(document).ready(function() {
