@@ -3,7 +3,7 @@
 {% block authenticated_content %}
 
 <div class="vh-100 w-100 p-3">
-<h1 style="text-transform: capitalize;">{{method}} OJT Input</h1>
+<h1 style="text-transform: capitalize; font-family: 'Bellota Text'">{{method}} OJT Input</h1>
 <div class="w-100 d-flex justify-content-center align-items-center">
 <form method="POST">
     {% csrf_token %}
@@ -26,7 +26,7 @@
                 <option>endorsed by partners</option>
             </select>
         </div>
-        </div>
+    </div>
     <div class="form-group mt-4">
         <label for="suc">SUC</label>
         <input type="text" class="form-control" name="suc" value="{{form.suc.value|default_if_none:'' }}">
@@ -106,6 +106,8 @@
     </div>
 
 </form>
+</div>
+</div>
 
 <script>
     $(document).ready(function() {

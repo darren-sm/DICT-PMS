@@ -4,80 +4,84 @@
     
     <div class="vh-100 w-100 p-3">
     <h1 style="text-transform: capitalize; font-family: 'Bellota Text'">{{method}} {{ model }}</h1>
-    <div class="d-flex justify-content-center align-items-center flex-column">
+    <div class="w-100 d-flex justify-content-center align-items-center">
     <form method="POST">
         {% csrf_token %}
-        <div class="form-group">
-            <label for="province">Province</label>
-            <select class="form-control" name="province">
-                <option>Batangas</option>
-                <option>Cavite</option>
-                <option>Laguna</option>
-                <option>Rizal</option>
-                <option>Quezon</option>
-                <option>RO</option>
-            </select>
+        <div class="d-flex column-gap-4 justify-content-around">
+            <div class="form-group w-100">
+                <label for="province">Province</label>
+                <select class="form-control" name="province">
+                    <option>Batangas</option>
+                    <option>Cavite</option>
+                    <option>Laguna</option>
+                    <option>Rizal</option>
+                    <option>Quezon</option>
+                    <option>RO</option>
+                </select>
+            </div>
+            <div class="form-group w-100">
+                <label for="component">Component</label>
+                <select class="form-control" name="component">
+                    <option>Hands-on Exam</option>
+                    <option>Diagnostic Exam</option>
+                    <option>User Assessment</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="component">Component</label>
-            <select class="form-control" name="component">
-                <option>Hands-on Exam</option>
-                <option>Diagnostic Exam</option>
-                <option>User Assessment</option>
-            </select>
-        </div>
-        <div class="form-group">
+        <div class="form-group w-100">
             <label for="name">Name</label>
             <input type="text" class="form-control" name="name" value="{{form.name.value|default_if_none:'' }}">
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4">
             <label for="venue">Venue</label>
             <input type="text" class="form-control" name="venue" value="{{form.venue.value|default_if_none:'' }}">
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4">
             <label for="gender">Gender</label>
             <select class="form-control" name="gender">
                 <option>M</option>
                 <option>F</option>
             </select>
         </div>
-        <div class="form-group">
-            <label for="date">Date</label>
-            <input type="text" class="form-control datepicker" name="date" placeholder="Select a date" value="{{form.date.value|default_if_none:'' }}">
+        <div class="d-flex column-gap-5 justify-content-around mt-4">
+            <div class="form-group w-100">
+                <label for="date">Date</label>
+                <input type="text" class="form-control datepicker" name="date" placeholder="Select a date" value="{{form.date.value|default_if_none:'' }}">
+            </div>
+            <div class="form-group w-100">
+                <label for="time">Time</label>
+                <select class="form-control" name="time">
+                    <option>AM</option>
+                    <option>PM</option>
+                </select>
+            </div>
+            <div class="form-group w-100">
+                <label for="status">Status</label>
+                <select class="form-control" name="status">
+                    <option>Passed</option>
+                    <option>Failed</option>
+                    <option>For checking</option>
+                    <option>For transmittal</option>
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="time">Time</label>
-            <select class="form-control" name="time">
-                <option>AM</option>
-                <option>PM</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="status">Status</label>
-            <select class="form-control" name="status">
-                <option>Passed</option>
-                <option>Failed</option>
-                <option>For checking</option>
-                <option>For transmittal</option>
-            </select>
-        </div>
-        <div class="form-group">
+        <div class="form-group mt-4">
             <label for="remarks">Remarks</label>
             <textarea class="form-control" name="remarks" rows="2">{{form.remarks.value|default_if_none:'' }}</textarea>
         </div>
-        <div class="form-group">
+        <div class="form-group mt-4">
             <label for="batch">Batch</label>
             <input type="text" class="form-control" name="batch" value="{{form.batch.value|default_if_none:'' }}" >
         </div>
 
-        <div class="d-flex justify-content-center align-items-center" style="margin-top: 10px; column-gap: 5px;">
+        <div class="m-3 column-gap-2 d-flex justify-content-center align-items-center">
             <button type="submit" class="btn btn-success">Submit</button>
             <a class="btn btn-secondary"  href="{% url 'home' %}" role="button">Back</a>
         </div>
     </form>
-    
     </div>
     </div>
+
     <script>
         $(document).ready(function() {
           $('.datepicker').datepicker({
