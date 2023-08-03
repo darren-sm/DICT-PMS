@@ -24,6 +24,8 @@
                 <option>ToT</option>
                 <option>Digital Governance and Management</option>
                 <option>Digital Transformative Technologies</option>
+                <option>Cybersecurity</option>
+                <option>Information Session</option>
             </select>
         </div>
         </div>
@@ -44,11 +46,11 @@
         <div class="d-flex column-gap-4 justify-content-around mt-4">
             <div class="form-group w-100">
                 <label for="start_time">Start Time</label>
-                <input type="text" class="form-control" name="start_time" value="{{form.start_time.value|default_if_none:'' }}">
+                <input type="time" class="form-control" name="start_time" value="{{form.start_time.value|default_if_none:'' }}">
             </div>
             <div class="form-group w-100">
                 <label for="end_time">End Time</label>
-                <input type="text" class="form-control" name="end_time" value="{{form.end_time.value|default_if_none:'' }}">
+                <input type="time" class="form-control" name="end_time" value="{{form.end_time.value|default_if_none:'' }}">
             </div>
         
             <div class="form-group w-100">
@@ -65,51 +67,68 @@
             <input type="text" class="form-control" name="facilitator" value="{{form.facilitator.value|default_if_none:'' }}">
         </div>
         <div class="w-100 mt-5">
-            <p class="d-flex justify-content-center">Sex Count</p>
+            <p class="d-flex justify-content-center">Breakdown of Participants</p>
             <div class="d-flex column-gap-4 justify-content-around">
+                <strong>Cavite</strong>
                 <div class="form-group w-100">
-                    <label for="female">Female</label>
-                    <input type="Number" class="form-control" name="female" value="{{form.female.value|default_if_none:'' }}">
+                    <label for="male_cavite">Male</label>
+                    <input type="Number" class="form-control" name="male_cavite" value="{{form.male_cavite.value|default_if_none:'' }}">
                 </div>
                 <div class="form-group w-100">
-                    <label for="male">Male</label>
-                    <input type="Number" class="form-control" name="male" value="{{form.male.value|default_if_none:'' }}">
+                    <label for="female_cavite">Female</label>
+                    <input type="Number" class="form-control" name="female_cavite" value="{{form.female_cavite.value|default_if_none:'' }}">
                 </div>
+                <br>
+                <strong>Laguna</strong>
+                <div class="form-group w-100">
+                    <label for="male_laguna">Male</label>
+                    <input type="Number" class="form-control" name="male_laguna" value="{{form.male_laguna.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group w-100">
+                    <label for="female_laguna">Female</label>
+                    <input type="Number" class="form-control" name="female_laguna" value="{{form.female_laguna.value|default_if_none:'' }}">
+                </div>
+                <strong>Batangas</strong>
+                <div class="form-group w-100">
+                    <label for="male_batangas">Male</label>
+                    <input type="Number" class="form-control" name="male_batangas" value="{{form.male_batangas.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group w-100">
+                    <label for="female_batangas">Female</label>
+                    <input type="Number" class="form-control" name="female_batangas" value="{{form.female_batangas.value|default_if_none:'' }}">
+                </div>
+                <strong>Rizal</strong>
+                <div class="form-group w-100">
+                    <label for="male_rizal">Male</label>
+                    <input type="Number" class="form-control" name="male_rizal" value="{{form.male_rizal.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group w-100">
+                    <label for="female_rizal">Female</label>
+                    <input type="Number" class="form-control" name="female_rizal" value="{{form.female_rizal.value|default_if_none:'' }}">
+                </div>
+                <strong>Quezon</strong>
+                <div class="form-group w-100">
+                    <label for="male_quezon">Male</label>
+                    <input type="Number" class="form-control" name="male_quezon" value="{{form.male_quezon.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group w-100">
+                    <label for="female_quezon">Female</label>
+                    <input type="Number" class="form-control" name="female_quezon" value="{{form.female_quezon.value|default_if_none:'' }}">
+                </div>
+                <strong>Other</strong>
+                <div class="form-group w-100">
+                    <label for="male_other">Male</label>
+                    <input type="Number" class="form-control" name="male_other" value="{{form.male_other.value|default_if_none:'' }}">
+                </div>
+                <div class="form-group w-100">
+                    <label for="female_other">Female</label>
+                    <input type="Number" class="form-control" name="female_other" value="{{form.female_other.value|default_if_none:'' }}">
+                </div>
+                
             </div>
         </div>
 
-        <div class="w-100 mt-5">
-        <p class="d-flex justify-content-center">Province Count</p>
-        <div class="d-flex column-gap-4 justify-content-around">
-        <div class="form-group w-100">
-            <label for="cavite">Cavite</label>
-            <input type="Number" class="form-control" name="cavite" value="{{form.cavite.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group w-100">
-            <label for="laguna">Laguna</label>
-            <input type="Number" class="form-control" name="laguna" value="{{form.laguna.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group w-100">
-            <label for="batangas">Batangas</label>
-            <input type="Number" class="form-control" name="batangas" value="{{form.batangas.value|default_if_none:'' }}">
-        </div>
-        </div>
-        <div class="d-flex column-gap-4 justify-content-around">
-        <div class="form-group w-100">
-            <label for="rizal">Rizal</label>
-            <input type="Number" class="form-control" name="rizal" value="{{form.rizal.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group w-100">
-            <label for="quezon">Quezon</label>
-            <input type="Number" class="form-control" name="quezon" value="{{form.quezon.value|default_if_none:'' }}">
-        </div>
-        <div class="form-group w-100">
-            <label for="other">Other</label>
-            <input type="text" class="form-control" name="other" value="{{form.other.value|default_if_none:'' }}">
-        </div>
-        </div>
-        </div>
-        
+      
         <div class="m-3 column-gap-2 d-flex justify-content-center align-items-center">
         <button type="submit" class="btn btn-success">Submit</button>
         <a class="btn btn-secondary"  href="{% url 'inputdata' %}" role="button">Back</a>
@@ -123,6 +142,7 @@
             format: "MM dd, yyyy",
           });
         });
+        
     </script>
       
 {% endblock %}

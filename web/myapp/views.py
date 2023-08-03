@@ -4,7 +4,7 @@ from django.contrib import messages
 from .forms import CPMSForm, ExamineesForm, OJTInputForm, tmdForm, epmdForm
 from .models import CPMS, Examinees, OJTInput, epmd, tmd
 from cryptography.fernet import Fernet
-
+from django.http.request import QueryDict
 def _flatten_cpms(cpms_data):
     bar = []
     for i in range(len(cpms_data['info']['Activity'])):
@@ -143,8 +143,23 @@ def form(request, category, method = 'add', hashed_id = None):
                     }
                 }, instance = target_record)       
             else:
-                form = categories[category]['form'](request.POST, instance = target_record)
-            
+                print(f"POST Data: {request.POST}")
+                post_data = request.POST
+                if category == 'tmd':
+                    tmd_data = {key: val[0] for key, val in dict(post_data).items()} 
+                    male_total, female_total = 0,0
+                    for key, val in post_data.items():
+                        if 'female' in key:
+                            female_total += int(val)
+                        elif 'male' in key:
+                            male_total += int(val)
+                        print(f"As of {key}: {male_total + female_total = }")
+                    tmd_data['female'] = female_total
+                    tmd_data['male'] = male_total
+                    tmd_data['total'] = female_total + male_total
+                    post_data = QueryDict('', mutable=True)
+                    post_data.update(tmd_data)
+                form = categories[category]['form'](post_data, instance = target_record)
             if form.is_valid():
                 form.save()
                 return redirect('home')     
@@ -198,7 +213,7 @@ def record(request, category, hashed_id):
                 'class': tmd, 
                 'selector': 'id',
                 'name': 'TMD',
-                'keys': ["province", "category", "title", "start_date", "end_date", "start_time", "end_time", "duration", "resource_person", "facilitator", "female", "male", "cavite", "laguna", "batangas", "rizal", "quezon", "other"]
+                'keys': ["province", "category", "title", "start_date", "end_date", "start_time", "end_time", "duration", "resource_person", "facilitator", "male_cavite", "female_cavite", "male_laguna", "female_laguna", "male_batangas", "female_batangas", "male_rizal", "female_rizal", "male_quezon", "female_quezon", "male_other", "female_other"]
                 },
             'epmd': {
                 'class': epmd, 
