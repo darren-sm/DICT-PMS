@@ -368,16 +368,16 @@ with conn.cursor() as cursor:
 print("CPMS data also ingested")
 
 # TMD Data
-with open("tmd.csv", "w", newline="", encoding = "utf-8") as f:
-    writer = csv.DictWriter(f, all_tmd[0].keys())
-    writer.writeheader()
-    writer.writerows(all_tmd)
+# with open("tmd.csv", "w", newline="", encoding = "utf-8") as f:
+#     writer = csv.DictWriter(f, all_tmd[0].keys())
+#     writer.writeheader()
+#     writer.writerows(all_tmd)
     
-with conn.cursor() as cursor:
-    with open('tmd.csv') as f:
-        cursor.copy_expert('COPY myapp_tmd(province, category, title, start_date, end_date, start_time, end_time, duration, resource_person, facilitator, female, male, cavite, laguna, batangas, rizal, quezon, other) FROM STDIN WITH HEADER CSV', f)
-        conn.commit()
-print("TMD data ingested")
+# with conn.cursor() as cursor:
+#     with open('tmd.csv') as f:
+#         cursor.copy_expert('COPY myapp_tmd(province, category, title, start_date, end_date, start_time, end_time, duration, resource_person, facilitator, female, male, cavite, laguna, batangas, rizal, quezon, other) FROM STDIN WITH HEADER CSV', f)
+#         conn.commit()
+# print("TMD data ingested")
 
 # EPMD Data
 with open("epmd.csv", "w", newline="", encoding = "utf-8") as f:
