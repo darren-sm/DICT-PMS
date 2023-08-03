@@ -21,10 +21,10 @@
     <h1 style="font-size: 2vh;">Table Selection</h1>
     <select id="tableSelect" class="form-select mb-3" onchange="selectTable()">
       {% comment %} <option value="cpms">CPMS Data</option> {% endcomment %}
-      <option value="examinee">Examinees Data</option>
-      <option value="ojt">OJT Input Data</option>
-      <option value="tmd">TMD Data</option>
-      <option value="epmd">EPMD Data</option>
+      <option value="examinee">C3D2</option>
+      <option value="ojt">Apprenticeship Program</option>
+      <option value="tmd">Training Management Division</option>
+      <option value="epmd">Partnership Engagement (EPMD)</option>
     </select>
 </div>
 {% comment %}
@@ -65,7 +65,7 @@
 </div> {% endcomment %}
 
 <div id="examineeTable">
-<h1> Examinees Data </h1>
+<h1> Examination Details </h1>
 <p><strong>Count</strong>: {{examinees_len}} | <strong>Target</strong>: 500</p>
 <div style="overflow-x: scroll">
 <table class="table table-striped" id="examineetable">
@@ -105,11 +105,11 @@
     </tbody>
 </table>
 </div>
-<a class="btn btn-success mt-4"  href="{% url 'form' 'examinee' 'add'%}" role="button">Add new Examinee data</a>
+<a class="btn btn-success mt-4"  href="{% url 'form' 'examinee' 'add'%}" role="button">Add new Examination data</a>
 </div>
 
 <div id="ojtTable" style="display: none;">
-<h1> OJT Input Data </h1>
+<h1> Apprenticeship Details </h1>
 <p><strong>Count</strong>: {{ojt_len}} | <strong>Target</strong>: 500</p>
 <div style="overflow-x: scroll">
 <table class="table table-striped" id="ojttable">
@@ -163,11 +163,11 @@
     </tbody>
 </table>
 </div>
-<a class="btn btn-success mt-4"  href="{% url 'form' 'ojt' 'add'%}" role="button">Add new OJT Input</a>
+<a class="btn btn-success mt-4"  href="{% url 'form' 'ojt' 'add'%}" role="button">Add new Apprenticeship Data</a>
 </div>
 
 <div id="tmdTable" style="display: none;">
-<h1> TMD Data </h1>
+<h1> Training Details </h1>
 <p><strong>Count</strong>: {{tmd_len}} | <strong>Target</strong>: 10</p>
 <div style="overflow-x: scroll">
 <table class="table table-striped" id="ojttable">
@@ -176,16 +176,17 @@
         <th class='text-center' scope="col">ID</th>
         <th class='text-center' scope="col">Province</th>
         <th class='text-center' scope="col">Category</th>
-        <th class='text-center' scope="col">Title</th>
+        {% comment %} <th class='text-center' scope="col">Title</th> {% endcomment %}
         <th class='text-center' scope="col">Start Date</th>
         <th class='text-center' scope="col">End Date</th>
         <th class='text-center' scope="col">Start Time</th>
-        <th class='text-center' scope="col">End Time</th>
-        <th class='text-center' scope="col">Duration</th>
-        <th class='text-center' scope="col">Resource person</th>
-        <th class='text-center' scope="col">Facilitator</th>
+        {% comment %} <th class='text-center' scope="col">End Time</th> {% endcomment %}
+        {% comment %} <th class='text-center' scope="col">Duration</th> {% endcomment %}
+        {% comment %} <th class='text-center' scope="col">Resource person</th> {% endcomment %}
+        {% comment %} <th class='text-center' scope="col">Facilitator</th> {% endcomment %}
         <th class='text-center' scope="col">Female</th>
         <th class='text-center' scope="col">Male</th>
+        <th class='text-center' scope="col">Total</th>
         <th class='text-center' scope="col">Cavite</th>
         <th class='text-center' scope="col">Laguna</th>
         <th class='text-center' scope="col">Batangas</th>
@@ -201,33 +202,35 @@
             <td class='text-center'><a href="{% url 'record' 'tmd' tmd.id|encode_id%}">{{ forloop.counter }}</a></td>
             <td class='text-center'>{{ tmd.province }}</td>
             <td class='text-center'>{{ tmd.category }}</td>
-            <td class='text-center'>{{ tmd.title }}</td>
+            {% comment %} <td class='text-center'>{{ tmd.title }}</td> {% endcomment %}
             <td class='text-center'>{{ tmd.start_date }}</td>
             <td class='text-center'>{{ tmd.end_date }}</td>
             <td class='text-center'>{{ tmd.start_time }}</td>
-            <td class='text-center'>{{ tmd.end_time }}</td>
-            <td class='text-center'>{{ tmd.duration }} hours</td>
-            <td class='text-center'>{{ tmd.resource_person }}</td>
-            <td class='text-center'>{{ tmd.facilitator }}</td>
+            {% comment %} <td class='text-center'>{{ tmd.end_time }}</td> {% endcomment %}
+            {% comment %} <td class='text-center'>{{ tmd.duration }} hours</td> {% endcomment %}
+            {% comment %} <td class='text-center'>{{ tmd.resource_person }}</td>
+            <td class='text-center'>{{ tmd.facilitator }}</td> {% endcomment %}
             <td class='text-center'>{{ tmd.female }}</td>
             <td class='text-center'>{{ tmd.male }}</td>
-            <td class='text-center'>{{ tmd.cavite }}</td>
-            <td class='text-center'>{{ tmd.laguna }}</td>
-            <td class='text-center'>{{ tmd.batangas }}</td>
-            <td class='text-center'>{{ tmd.rizal }}</td>
-            <td class='text-center'>{{ tmd.quezon }}</td>
-            <td class='text-center'>{{ tmd.other }}</td>
+            <td class='text-center'>{{ tmd.total }}</td>
+            <td class='text-center'>{{ tmd.male_cavite|add:tmd.female_cavite }}</td>
+            <td class='text-center'>{{ tmd.male_laguna|add:tmd.female_laguna }}</td>
+            <td class='text-center'>{{ tmd.male_batangas|add:tmd.female_batangas }}</td>
+            <td class='text-center'>{{ tmd.male_rizal|add:tmd.female_rizal }}</td>
+            <td class='text-center'>{{ tmd.male_quezon|add:tmd.female_quezon }}</td>
+            <td class='text-center'>{{ tmd.male_other|add:tmd.female_other }}</td>
+            
         </tr>
         {% endfor %}
     {% endif %}
     </tbody>
 </table>
 </div>
-<a class="btn btn-success mt-4"  href="{% url 'form' 'tmd' 'add'%}" role="button">Add new TMD Input</a>
+<a class="btn btn-success mt-4"  href="{% url 'form' 'tmd' 'add'%}" role="button">Add new Training Data</a>
 </div>
 
 <div id="epmdTable" style="display: none;">
-<h1> EPMD Data </h1>
+<h1> Partnership Details </h1>
 <p><strong>Count</strong>: {{epmd_len}} | <strong>Target</strong>: 500</p>
 <div style="overflow-x: scroll">
 <table class="table table-striped" id="epmdtable">
@@ -273,7 +276,7 @@
     </tbody>
 </table>
 </div>
-<a class="btn btn-success mt-4"  href="{% url 'form' 'epmd' 'add'%}" role="button">Add new EPMD Input</a>
+<a class="btn btn-success mt-4"  href="{% url 'form' 'epmd' 'add'%}" role="button">Add new Partnership Data</a>
 </div>
 
 </div>
