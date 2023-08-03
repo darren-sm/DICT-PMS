@@ -43,8 +43,11 @@
         
       <a href="{% url 'home' %}" class="btn btn-secondary">Go back</a>
       
-      <a href="{% url 'form' category 'update' key|encode_id %}" class="btn btn-danger">Update</a>
-      <a href="{% url 'delete_record' category key|encode_id %}" class="btn btn-danger">Delete</a>
+      {% if request.user.username == record.province or request.user.is_staff %}
+        <a href="{% url 'form' category 'update' key|encode_id %}" class="btn btn-danger">Update</a>
+        <a href="{% url 'delete_record' category key|encode_id %}" class="btn btn-danger">Delete</a>
+      {% endif %}
+      
     </div>
   </div>
 
