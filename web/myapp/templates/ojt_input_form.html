@@ -11,19 +11,19 @@
         <div class="form-group w-100">
             <label for="province">Province</label>
             <select class="form-control" name="province">
-                <option>Batangas</option>
-                <option>Cavite</option>
-                <option>Laguna</option>
-                <option>Rizal</option>
-                <option>Quezon</option>
-                <option>RO</option>
+                <option {% if request.user.username == 'Batangas' %}selected{% endif %}>Batangas</option>
+                <option {% if request.user.username == 'Cavite' %}selected{% endif %}>Cavite</option>
+                <option {% if request.user.username == 'Laguna' %}selected{% endif %}>Laguna</option>
+                <option {% if request.user.username == 'Rizal' %}selected{% endif %}>Rizal</option>
+                <option {% if request.user.username == 'Quezon' %}selected{% endif %}>Quezon</option>
+                <option {% if request.user.username == 'RO' %}selected{% endif %}>RO</option>
             </select>
         </div>
         <div class="form-group w-100">
             <label for="category">Component</label>
             <select class="form-control" name="category">
-                <option>accepted at DICT Office</option>
-                <option>endorsed by partners</option>
+                <option>interns accepted</option>
+                <option>interns completed</option>
             </select>
         </div>
     </div>
