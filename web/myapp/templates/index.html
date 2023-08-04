@@ -20,55 +20,19 @@
 <div class="w-100 p-3 position-sticky" id="table-selection">
     <h1 style="font-size: 2vh;">Table Selection</h1>
     <select id="tableSelect" class="form-select mb-3" onchange="selectTable()">
-      {% comment %} <option value="cpms">CPMS Data</option> {% endcomment %}
       <option value="examinee">C3D2</option>
       <option value="ojt">Apprenticeship Program</option>
       <option value="tmd">Training Management Division</option>
       <option value="epmd">Partnership Engagement (EPMD)</option>
     </select>
 </div>
-{% comment %}
 
-
-<div id="cpmsTable">
-<h1> CPMS Data </h1>
-
-<table class="table table-hover">
-    <thead>
-      <tr>
-        <th class='text-center' scope="col">Program</th>
-        <th class='text-center' scope="col">Activity</th>
-        <th class='text-center' scope="col">Indicator</th>
-        <th class='text-center' scope="col">Target</th>
-        <th class='text-center' scope="col">Accomplishment</th>
-        <th class='text-center' scope="col">Remarks</th>
-      </tr>
-    </thead>
-    <tbody>
-    {% if cpms_data %}
-    {% for cpms in cpms_data %}
-        {% for record in cpms %}
-        <tr>
-          <td class='text-center'> <a href="{% url 'record' 'cpms' record.id|encode_id %}">{{ record.Program }}</a> </td>
-          <td class='text-center'> {{ record.Activty }} </td>
-          <td class='text-center'> {{ record.Indicator }} </td>
-          <td class='text-center'> {% if record.Target %} {{ record.Target }} {% endif %} </td>
-          <td class='text-center'> {% if record.Accomplishment %} {{ record.Accomplishment }} {% endif %} </td>
-          <td class='text-center'> {{ record.Remark }} </td>
-        </tr>
-        {% endfor %}
-    {% endfor %}
-    {% endif %}
-    </tbody>
-</table>
-<a class="btn btn-success"  href="{% url 'form' 'cpms' 'add' %}" role="button">Add new CPMS data</a>
-</div> {% endcomment %}
-
-<div id="examineeTable">
+<div id="examineeTable" style="display:block">
 <h1> Examination Details </h1>
 <p><strong>Count</strong>: {{examinees_len}} | <strong>Target</strong>: 500</p>
 <div style="overflow-x: scroll">
-<table class="table table-striped" id="examineetable">
+<h2>Hands-on Exam</h2>
+<table class="table table-striped" id="examineetable1">
     <thead>
       <tr>
         <th class='text-center' scope="col">No.</th>
@@ -86,7 +50,7 @@
     </thead>
     <tbody>
     {% if examinees_data %}
-        {% for examinee in examinees_data %}
+        {% for examinee in hands_on %}
         <tr>
             <td class='text-center'><a href="{% url 'record' 'examinee' examinee.no|encode_id%}">{{ forloop.counter }}</a></td>
             <td class='text-center'>{{ examinee.province }}</td>
@@ -103,6 +67,80 @@
         {% endfor %}
     {% endif %}
     </tbody>
+</table>
+<h2>Diagnostic Exam</h2>
+<table class="table table-striped" id="examineetable2">
+    <thead>
+      <tr>
+        <th class='text-center' scope="col">No.</th>
+        <th class='text-center' scope="col">Province</th>
+        <th class='text-center' scope="col">Component</th>
+        <th class='text-center' scope="col">Name</th>
+        <th class='text-center' scope="col">Venue</th>
+        <th class='text-center' scope="col">Gender</th>
+        <th class='text-center' scope="col">Date</th>
+        <th class='text-center' scope="col">Time</th>
+        <th class='text-center' scope="col">Status</th>
+        <th class='text-center' scope="col">Remarks</th>
+        <th class='text-center' scope="col">Batch</th>
+      </tr>
+    </thead>
+    <tbody>
+    {% if examinees_data %}
+        {% for examinee in diagnostic %}
+        <tr>
+            <td class='text-center'><a href="{% url 'record' 'examinee' examinee.no|encode_id%}">{{ forloop.counter }}</a></td>
+            <td class='text-center'>{{ examinee.province }}</td>
+            <td class='text-center'>{{ examinee.component }}</td>
+            <td class='text-center'>{{ examinee.name }}</td>
+            <td class='text-center'>{{ examinee.venue }}</td>
+            <td class='text-center'>{{ examinee.gender }}</td>
+            <td class='text-center'>{{ examinee.date }}</td>
+            <td class='text-center'>{{ examinee.time }}</td>
+            <td class='text-center'>{{ examinee.status }}</td>
+            <td class='text-center'>{{ examinee.remarks }}</td>
+            <td class='text-center'>{{ examinee.batch }}</td>
+        </tr>
+        {% endfor %}
+    {% endif %}
+    </tbody>
+</table>
+<h2>User Assessment</h2>
+<table class="table table-striped" id="examineetable3">
+      <thead>
+        <tr>
+            <th class='text-center' scope="col">No.</th>
+            <th class='text-center' scope="col">Province</th>
+            <th class='text-center' scope="col">Component</th>
+            <th class='text-center' scope="col">Name</th>
+            <th class='text-center' scope="col">Venue</th>
+            <th class='text-center' scope="col">Gender</th>
+            <th class='text-center' scope="col">Date</th>
+            <th class='text-center' scope="col">Time</th>
+            <th class='text-center' scope="col">Status</th>
+            <th class='text-center' scope="col">Remarks</th>
+            <th class='text-center' scope="col">Batch</th>
+          </tr>
+        </thead>
+        <tbody>
+        {% if examinees_data %}
+            {% for examinee in assessment %}
+            <tr>
+                <td class='text-center'><a href="{% url 'record' 'examinee' examinee.no|encode_id%}">{{ forloop.counter }}</a></td>
+                <td class='text-center'>{{ examinee.province }}</td>
+                <td class='text-center'>{{ examinee.component }}</td>
+                <td class='text-center'>{{ examinee.name }}</td>
+                <td class='text-center'>{{ examinee.venue }}</td>
+                <td class='text-center'>{{ examinee.gender }}</td>
+                <td class='text-center'>{{ examinee.date }}</td>
+                <td class='text-center'>{{ examinee.time }}</td>
+                <td class='text-center'>{{ examinee.status }}</td>
+                <td class='text-center'>{{ examinee.remarks }}</td>
+                <td class='text-center'>{{ examinee.batch }}</td>
+            </tr>
+            {% endfor %}
+        {% endif %}
+        </tbody>
 </table>
 </div>
 <a class="btn btn-success mt-4"  href="{% url 'form' 'examinee' 'add'%}" role="button">Add new Examination data</a>
@@ -121,11 +159,8 @@
         <th class='text-center' scope="col">Suc</th>
         <th class='text-center' scope="col">Duration</th>
         <th class='text-center' scope="col">School Address</th>
-        <th class='text-center' scope="col">Representative</th>
-        <th class='text-center' scope="col">Contact Number</th>
         <th class='text-center' scope="col">Student Name</th>
         <th class='text-center' scope="col">Sex</th>
-        <th class='text-center' scope="col">Contact Number</th>
         <th class='text-center' scope="col">Start Date</th>
         <th class='text-center' scope="col">End Date</th>
         <th class='text-center' scope="col">Mode</th>
@@ -145,11 +180,8 @@
             <td class='text-center'>{{ ojt.suc }}</td>
             <td class='text-center'>{{ ojt.duration }} hours</td>
             <td class='text-center'>{{ ojt.school_address }}</td>
-            <td class='text-center'>{{ ojt.representative }}</td>
-            <td class='text-center'>{{ ojt.representative_contact }}</td>
             <td class='text-center'>{{ ojt.student_name }}</td>
             <td class='text-center'>{{ ojt.sex }}</td>
-            <td class='text-center'>{{ ojt.student_contact }}</td>
             <td class='text-center'>{{ ojt.start_date }}</td>
             <td class='text-center'>{{ ojt.end_date }}</td>
             <td class='text-center'>{{ ojt.mode }}</td>
@@ -170,7 +202,7 @@
 <h1> Training Details </h1>
 <p><strong>Count</strong>: {{tmd_len}} | <strong>Target</strong>: 10</p>
 <div style="overflow-x: scroll">
-<table class="table table-striped" id="ojttable">
+<table class="table table-striped" id="tmdtable1">
     <thead>
       <tr>
         <th class='text-center' scope="col">ID</th>
@@ -197,7 +229,7 @@
     </thead>
     <tbody>
     {% if tmd_data %}
-        {% for tmd in tmd_data %}
+        {% for tmd in tot %}
         <tr>
             <td class='text-center'><a href="{% url 'record' 'tmd' tmd.id|encode_id%}">{{ forloop.counter }}</a></td>
             <td class='text-center'>{{ tmd.province }}</td>
@@ -224,6 +256,226 @@
         {% endfor %}
     {% endif %}
     </tbody>
+</table>
+<table class="table table-striped" id="tmdtable2">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">ID</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      {% comment %} <th class='text-center' scope="col">Title</th> {% endcomment %}
+      <th class='text-center' scope="col">Start Date</th>
+      <th class='text-center' scope="col">End Date</th>
+      <th class='text-center' scope="col">Start Time</th>
+      {% comment %} <th class='text-center' scope="col">End Time</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Duration</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Resource person</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Facilitator</th> {% endcomment %}
+      <th class='text-center' scope="col">Female</th>
+      <th class='text-center' scope="col">Male</th>
+      <th class='text-center' scope="col">Total</th>
+      <th class='text-center' scope="col">Cavite</th>
+      <th class='text-center' scope="col">Laguna</th>
+      <th class='text-center' scope="col">Batangas</th>
+      <th class='text-center' scope="col">Rizal</th>
+      <th class='text-center' scope="col">Quezon</th>
+      <th class='text-center' scope="col">Other</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if tmd_data %}
+      {% for tmd in digital %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'tmd' tmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ tmd.province }}</td>
+          <td class='text-center'>{{ tmd.category }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.title }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.start_date }}</td>
+          <td class='text-center'>{{ tmd.end_date }}</td>
+          <td class='text-center'>{{ tmd.start_time }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.end_time }}</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.duration }} hours</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.resource_person }}</td>
+          <td class='text-center'>{{ tmd.facilitator }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.female }}</td>
+          <td class='text-center'>{{ tmd.male }}</td>
+          <td class='text-center'>{{ tmd.total }}</td>
+          <td class='text-center'>{{ tmd.male_cavite|add:tmd.female_cavite }}</td>
+          <td class='text-center'>{{ tmd.male_laguna|add:tmd.female_laguna }}</td>
+          <td class='text-center'>{{ tmd.male_batangas|add:tmd.female_batangas }}</td>
+          <td class='text-center'>{{ tmd.male_rizal|add:tmd.female_rizal }}</td>
+          <td class='text-center'>{{ tmd.male_quezon|add:tmd.female_quezon }}</td>
+          <td class='text-center'>{{ tmd.male_other|add:tmd.female_other }}</td>
+          
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+<table class="table table-striped" id="tmdtable3">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">ID</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      {% comment %} <th class='text-center' scope="col">Title</th> {% endcomment %}
+      <th class='text-center' scope="col">Start Date</th>
+      <th class='text-center' scope="col">End Date</th>
+      <th class='text-center' scope="col">Start Time</th>
+      {% comment %} <th class='text-center' scope="col">End Time</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Duration</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Resource person</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Facilitator</th> {% endcomment %}
+      <th class='text-center' scope="col">Female</th>
+      <th class='text-center' scope="col">Male</th>
+      <th class='text-center' scope="col">Total</th>
+      <th class='text-center' scope="col">Cavite</th>
+      <th class='text-center' scope="col">Laguna</th>
+      <th class='text-center' scope="col">Batangas</th>
+      <th class='text-center' scope="col">Rizal</th>
+      <th class='text-center' scope="col">Quezon</th>
+      <th class='text-center' scope="col">Other</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if tmd_data %}
+      {% for tmd in digitaltransform %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'tmd' tmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ tmd.province }}</td>
+          <td class='text-center'>{{ tmd.category }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.title }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.start_date }}</td>
+          <td class='text-center'>{{ tmd.end_date }}</td>
+          <td class='text-center'>{{ tmd.start_time }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.end_time }}</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.duration }} hours</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.resource_person }}</td>
+          <td class='text-center'>{{ tmd.facilitator }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.female }}</td>
+          <td class='text-center'>{{ tmd.male }}</td>
+          <td class='text-center'>{{ tmd.total }}</td>
+          <td class='text-center'>{{ tmd.male_cavite|add:tmd.female_cavite }}</td>
+          <td class='text-center'>{{ tmd.male_laguna|add:tmd.female_laguna }}</td>
+          <td class='text-center'>{{ tmd.male_batangas|add:tmd.female_batangas }}</td>
+          <td class='text-center'>{{ tmd.male_rizal|add:tmd.female_rizal }}</td>
+          <td class='text-center'>{{ tmd.male_quezon|add:tmd.female_quezon }}</td>
+          <td class='text-center'>{{ tmd.male_other|add:tmd.female_other }}</td>
+          
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+<table class="table table-striped" id="tmdtable4">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">ID</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      {% comment %} <th class='text-center' scope="col">Title</th> {% endcomment %}
+      <th class='text-center' scope="col">Start Date</th>
+      <th class='text-center' scope="col">End Date</th>
+      <th class='text-center' scope="col">Start Time</th>
+      {% comment %} <th class='text-center' scope="col">End Time</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Duration</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Resource person</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Facilitator</th> {% endcomment %}
+      <th class='text-center' scope="col">Female</th>
+      <th class='text-center' scope="col">Male</th>
+      <th class='text-center' scope="col">Total</th>
+      <th class='text-center' scope="col">Cavite</th>
+      <th class='text-center' scope="col">Laguna</th>
+      <th class='text-center' scope="col">Batangas</th>
+      <th class='text-center' scope="col">Rizal</th>
+      <th class='text-center' scope="col">Quezon</th>
+      <th class='text-center' scope="col">Other</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if tmd_data %}
+      {% for tmd in cyber %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'tmd' tmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ tmd.province }}</td>
+          <td class='text-center'>{{ tmd.category }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.title }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.start_date }}</td>
+          <td class='text-center'>{{ tmd.end_date }}</td>
+          <td class='text-center'>{{ tmd.start_time }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.end_time }}</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.duration }} hours</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.resource_person }}</td>
+          <td class='text-center'>{{ tmd.facilitator }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.female }}</td>
+          <td class='text-center'>{{ tmd.male }}</td>
+          <td class='text-center'>{{ tmd.total }}</td>
+          <td class='text-center'>{{ tmd.male_cavite|add:tmd.female_cavite }}</td>
+          <td class='text-center'>{{ tmd.male_laguna|add:tmd.female_laguna }}</td>
+          <td class='text-center'>{{ tmd.male_batangas|add:tmd.female_batangas }}</td>
+          <td class='text-center'>{{ tmd.male_rizal|add:tmd.female_rizal }}</td>
+          <td class='text-center'>{{ tmd.male_quezon|add:tmd.female_quezon }}</td>
+          <td class='text-center'>{{ tmd.male_other|add:tmd.female_other }}</td>
+          
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+<table class="table table-striped" id="tmdtable5">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">ID</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      {% comment %} <th class='text-center' scope="col">Title</th> {% endcomment %}
+      <th class='text-center' scope="col">Start Date</th>
+      <th class='text-center' scope="col">End Date</th>
+      <th class='text-center' scope="col">Start Time</th>
+      {% comment %} <th class='text-center' scope="col">End Time</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Duration</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Resource person</th> {% endcomment %}
+      {% comment %} <th class='text-center' scope="col">Facilitator</th> {% endcomment %}
+      <th class='text-center' scope="col">Female</th>
+      <th class='text-center' scope="col">Male</th>
+      <th class='text-center' scope="col">Total</th>
+      <th class='text-center' scope="col">Cavite</th>
+      <th class='text-center' scope="col">Laguna</th>
+      <th class='text-center' scope="col">Batangas</th>
+      <th class='text-center' scope="col">Rizal</th>
+      <th class='text-center' scope="col">Quezon</th>
+      <th class='text-center' scope="col">Other</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if tmd_data %}
+      {% for tmd in information %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'tmd' tmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ tmd.province }}</td>
+          <td class='text-center'>{{ tmd.category }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.title }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.start_date }}</td>
+          <td class='text-center'>{{ tmd.end_date }}</td>
+          <td class='text-center'>{{ tmd.start_time }}</td>
+          {% comment %} <td class='text-center'>{{ tmd.end_time }}</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.duration }} hours</td> {% endcomment %}
+          {% comment %} <td class='text-center'>{{ tmd.resource_person }}</td>
+          <td class='text-center'>{{ tmd.facilitator }}</td> {% endcomment %}
+          <td class='text-center'>{{ tmd.female }}</td>
+          <td class='text-center'>{{ tmd.male }}</td>
+          <td class='text-center'>{{ tmd.total }}</td>
+          <td class='text-center'>{{ tmd.male_cavite|add:tmd.female_cavite }}</td>
+          <td class='text-center'>{{ tmd.male_laguna|add:tmd.female_laguna }}</td>
+          <td class='text-center'>{{ tmd.male_batangas|add:tmd.female_batangas }}</td>
+          <td class='text-center'>{{ tmd.male_rizal|add:tmd.female_rizal }}</td>
+          <td class='text-center'>{{ tmd.male_quezon|add:tmd.female_quezon }}</td>
+          <td class='text-center'>{{ tmd.male_other|add:tmd.female_other }}</td>
+          
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
 </table>
 </div>
 <a class="btn btn-success mt-4"  href="{% url 'form' 'tmd' 'add'%}" role="button">Add new Training Data</a>
@@ -283,40 +535,40 @@
 
 
 <script>
-  let table = new DataTable('#ojttable');
-  let table1 = new DataTable('#examineetable');
-  let table2 = new DataTable('#tmdtable');
-  let table3 = new DataTable('#epmdtable');
+  let table = new DataTable('#examineetable1');
+  let table1 = new DataTable('#examineetable2');
+  let table2 = new DataTable('#examineetable3');
+  let table3 = new DataTable('#ojttable');
+  let table4 = new DataTable('#tmdtable1');
+  let table5 = new DataTable('#tmdtable2');
+  let table6 = new DataTable('#tmdtable3');
+  let table7 = new DataTable('#tmdtable4');
+  let table8 = new DataTable('#tmdtable5');
+  let table9 = new DataTable('#epmdtable');
 
     function selectTable() {
         var selectedTable = document.getElementById("tableSelect").value;
 
-        if (selectedTable === "cpms") {
-            {% comment %} document.getElementById("cpmsTable").style.display = "block"; {% endcomment %}
-            document.getElementById("examineeTable").style.display = "none";
-            document.getElementById("ojtTable").style.display = "none";
-            document.getElementById("tmdTable").style.display = "none";
-            document.getElementById("epmdTable").style.display = "none";
-        } else if (selectedTable === "examinee") {
-            {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
+
+        if (selectedTable === "examinee") {
             document.getElementById("examineeTable").style.display = "block";
             document.getElementById("ojtTable").style.display = "none";
             document.getElementById("tmdTable").style.display = "none";
             document.getElementById("epmdTable").style.display = "none";
-        } else if (selectedTable === "ojt") {
-            {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
+        } 
+        else if (selectedTable === "ojt") {
             document.getElementById("examineeTable").style.display = "none";
             document.getElementById("ojtTable").style.display = "block";
             document.getElementById("tmdTable").style.display = "none";
             document.getElementById("epmdTable").style.display = "none";
-        } else if (selectedTable === "tmd") {
-            {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
+        } 
+        else if (selectedTable === "tmd") {
             document.getElementById("examineeTable").style.display = "none";
             document.getElementById("ojtTable").style.display = "none";
             document.getElementById("tmdTable").style.display = "block";
             document.getElementById("epmdTable").style.display = "none";
-        } else if (selectedTable === "epmd") {
-            {% comment %} document.getElementById("cpmsTable").style.display = "none"; {% endcomment %}
+        } 
+        else if (selectedTable === "epmd") {
             document.getElementById("examineeTable").style.display = "none";
             document.getElementById("ojtTable").style.display = "none";
             document.getElementById("tmdTable").style.display = "none";

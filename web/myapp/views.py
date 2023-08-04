@@ -33,14 +33,35 @@ def home(request):
     if request.user.is_authenticated:
         cpms_data = [_flatten_cpms(obj.__dict__) for obj in CPMS.objects.all()]
         examinees_data = Examinees.objects.all()
+        hands_on = Examinees.objects.filter(component='Hands-on Exam')
+        diagnostic = Examinees.objects.filter(component='Diagnostic Exam')
+        assessment = Examinees.objects.filter(component='User Assessment')
         ojt_data = OJTInput.objects.all()
         tmd_data = tmd.objects.all()
+        tot = tmd.objects.filter(category='ToT')
+        digital = tmd.objects.filter(category='Digital Governance and Management')
+        digitaltransform = tmd.objects.filter(category='Digital Transformative Technologies')
+        cyber = tmd.objects.filter(category='Cyber Security')
+        information = tmd.objects.filter(category='Information Session')
         epmd_data = epmd.objects.all()
+        nga = epmd.objects.filter(category='NGA')
+        lgu = epmd.objects.filter(category='LGU')
+        industry = epmd.objects.filter(category='Industry')
+        suc = epmd.objects.filter(category='SUC')
+        training = epmd.objects.filter(category='Training Institution')
         return render(request, 'index.html', {
             'cpms_data': cpms_data,
             'examinees_data': examinees_data,
+            'hands_on': hands_on,
+            'diagnostic': diagnostic,
+            'assessment': assessment,
             'ojt_data': ojt_data,
             'tmd_data': tmd_data,
+            'tot': tot,
+            'digital': digital,
+            'digitaltransform': digitaltransform,
+            'cyber': cyber,
+            'information': information,
             'epmd_data': epmd_data,
             'cpms_len': len(cpms_data),
             'examinees_len': len(examinees_data),

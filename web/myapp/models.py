@@ -74,8 +74,8 @@ class OJTInput(models.Model):
     ]
 
     CATEGORY_CHOICES = [
-        ('accepted at DICT Office', 'accepted at DICT Office'),
-        ('endorsed by partners', 'endorsed by partners'),
+        ('interns accepted', 'interns accepted'),
+        ('interns completed', 'interns completed'),
     ]
 
     SEX_CHOICES = [
@@ -127,6 +127,7 @@ class tmd(models.Model):
         ('Digital Governance and Management', 'Digital Governance and Management'),
         ('Digital Transformative Technologies', 'Digital Transformative Technologies'),
         ('Cyber Security', 'Cyber Security'),
+        ('Information Session', 'Information Session'),
     ]
 
     SEX_CHOICES = [
