@@ -202,6 +202,7 @@
 <h1> Training Details </h1>
 <p><strong>Count</strong>: {{tmd_len}} | <strong>Target</strong>: 10</p>
 <div style="overflow-x: scroll">
+<h2> ToT </h2>
 <table class="table table-striped" id="tmdtable1">
     <thead>
       <tr>
@@ -257,6 +258,7 @@
     {% endif %}
     </tbody>
 </table>
+<h2> Digital Governance and Management</h2>
 <table class="table table-striped" id="tmdtable2">
   <thead>
     <tr>
@@ -312,6 +314,7 @@
   {% endif %}
   </tbody>
 </table>
+<h2>Digital Transformative Technologies</h2>
 <table class="table table-striped" id="tmdtable3">
   <thead>
     <tr>
@@ -367,6 +370,7 @@
   {% endif %}
   </tbody>
 </table>
+<h2>Cybersecurity</h2>
 <table class="table table-striped" id="tmdtable4">
   <thead>
     <tr>
@@ -422,6 +426,7 @@
   {% endif %}
   </tbody>
 </table>
+<h2>Information Session</h2>
 <table class="table table-striped" id="tmdtable5">
   <thead>
     <tr>
@@ -485,47 +490,220 @@
 <h1> Partnership Details </h1>
 <p><strong>Count</strong>: {{epmd_len}} | <strong>Target</strong>: 500</p>
 <div style="overflow-x: scroll">
-<table class="table table-striped" id="epmdtable">
-    <thead>
+<h2>NGA</h2>
+<table class="table table-striped" id="epmdtable1">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">Id</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      <th class='text-center' scope="col">Name</th>
+      <th class='text-center' scope="col">Address</th>
+      <th class='text-center' scope="col">Representative</th>
+      <th class='text-center' scope="col">Email</th>
+      <th class='text-center' scope="col">Number</th>
+      <th class='text-center' scope="col">Date</th>
+      <th class='text-center' scope="col">MoU</th>
+      <th class='text-center' scope="col">LOI</th>
+      <th class='text-center' scope="col">Signatory</th>
+      <th class='text-center' scope="col">Designation</th>
+      <th class='text-center' scope="col">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if epmd_data %}
+      {% for epmd in nga %}
       <tr>
-        <th class='text-center' scope="col">Id</th>
-        <th class='text-center' scope="col">Province</th>
-        <th class='text-center' scope="col">Category</th>
-        <th class='text-center' scope="col">Name</th>
-        <th class='text-center' scope="col">Address</th>
-        <th class='text-center' scope="col">Representative</th>
-        <th class='text-center' scope="col">Email</th>
-        <th class='text-center' scope="col">Number</th>
-        <th class='text-center' scope="col">Date</th>
-        <th class='text-center' scope="col">MoU</th>
-        <th class='text-center' scope="col">LOI</th>
-        <th class='text-center' scope="col">Signatory</th>
-        <th class='text-center' scope="col">Designation</th>
-        <th class='text-center' scope="col">Remarks</th>
+          <td class='text-center'><a href="{% url 'record' 'epmd' epmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ epmd.province }}</td>
+          <td class='text-center'>{{ epmd.category }}</td>
+          <td class='text-center'>{{ epmd.name }}</td>
+          <td class='text-center'>{{ epmd.address }} hours</td>
+          <td class='text-center'>{{ epmd.representative }}</td>
+          <td class='text-center'>{{ epmd.email }}</td>
+          <td class='text-center'>{{ epmd.number }}</td>
+          <td class='text-center'>{{ epmd.date }}</td>
+          <td class='text-center'>{{ epmd.mou }}</td>
+          <td class='text-center'>{{ epmd.loi }}</td>
+          <td class='text-center'>{{ epmd.signatory }}</td>
+          <td class='text-center'>{{ epmd.designation }}</td>
+          <td class='text-center'>{{ epmd.remarks }}</td>
       </tr>
-    </thead>
-    <tbody>
-    {% if epmd_data %}
-        {% for epmd in epmd_data %}
-        <tr>
-            <td class='text-center'><a href="{% url 'record' 'epmd' epmd.id|encode_id%}">{{ forloop.counter }}</a></td>
-            <td class='text-center'>{{ epmd.province }}</td>
-            <td class='text-center'>{{ epmd.category }}</td>
-            <td class='text-center'>{{ epmd.name }}</td>
-            <td class='text-center'>{{ epmd.address }} hours</td>
-            <td class='text-center'>{{ epmd.representative }}</td>
-            <td class='text-center'>{{ epmd.email }}</td>
-            <td class='text-center'>{{ epmd.number }}</td>
-            <td class='text-center'>{{ epmd.date }}</td>
-            <td class='text-center'>{{ epmd.mou }}</td>
-            <td class='text-center'>{{ epmd.loi }}</td>
-            <td class='text-center'>{{ epmd.signatory }}</td>
-            <td class='text-center'>{{ epmd.designation }}</td>
-            <td class='text-center'>{{ epmd.remarks }}</td>
-        </tr>
-        {% endfor %}
-    {% endif %}
-    </tbody>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+<h2>LGU</h2>
+<table class="table table-striped" id="epmdtable2">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">Id</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      <th class='text-center' scope="col">Name</th>
+      <th class='text-center' scope="col">Address</th>
+      <th class='text-center' scope="col">Representative</th>
+      <th class='text-center' scope="col">Email</th>
+      <th class='text-center' scope="col">Number</th>
+      <th class='text-center' scope="col">Date</th>
+      <th class='text-center' scope="col">MoU</th>
+      <th class='text-center' scope="col">LOI</th>
+      <th class='text-center' scope="col">Signatory</th>
+      <th class='text-center' scope="col">Designation</th>
+      <th class='text-center' scope="col">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if epmd_data %}
+      {% for epmd in lgu %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'epmd' epmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ epmd.province }}</td>
+          <td class='text-center'>{{ epmd.category }}</td>
+          <td class='text-center'>{{ epmd.name }}</td>
+          <td class='text-center'>{{ epmd.address }} hours</td>
+          <td class='text-center'>{{ epmd.representative }}</td>
+          <td class='text-center'>{{ epmd.email }}</td>
+          <td class='text-center'>{{ epmd.number }}</td>
+          <td class='text-center'>{{ epmd.date }}</td>
+          <td class='text-center'>{{ epmd.mou }}</td>
+          <td class='text-center'>{{ epmd.loi }}</td>
+          <td class='text-center'>{{ epmd.signatory }}</td>
+          <td class='text-center'>{{ epmd.designation }}</td>
+          <td class='text-center'>{{ epmd.remarks }}</td>
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+<h2>Industry</h2>
+<table class="table table-striped" id="epmdtable3">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">Id</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      <th class='text-center' scope="col">Name</th>
+      <th class='text-center' scope="col">Address</th>
+      <th class='text-center' scope="col">Representative</th>
+      <th class='text-center' scope="col">Email</th>
+      <th class='text-center' scope="col">Number</th>
+      <th class='text-center' scope="col">Date</th>
+      <th class='text-center' scope="col">MoU</th>
+      <th class='text-center' scope="col">LOI</th>
+      <th class='text-center' scope="col">Signatory</th>
+      <th class='text-center' scope="col">Designation</th>
+      <th class='text-center' scope="col">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if epmd_data %}
+      {% for epmd in industry %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'epmd' epmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ epmd.province }}</td>
+          <td class='text-center'>{{ epmd.category }}</td>
+          <td class='text-center'>{{ epmd.name }}</td>
+          <td class='text-center'>{{ epmd.address }} hours</td>
+          <td class='text-center'>{{ epmd.representative }}</td>
+          <td class='text-center'>{{ epmd.email }}</td>
+          <td class='text-center'>{{ epmd.number }}</td>
+          <td class='text-center'>{{ epmd.date }}</td>
+          <td class='text-center'>{{ epmd.mou }}</td>
+          <td class='text-center'>{{ epmd.loi }}</td>
+          <td class='text-center'>{{ epmd.signatory }}</td>
+          <td class='text-center'>{{ epmd.designation }}</td>
+          <td class='text-center'>{{ epmd.remarks }}</td>
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+<h2>SUC</h2>
+<table class="table table-striped" id="epmdtable4">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">Id</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      <th class='text-center' scope="col">Name</th>
+      <th class='text-center' scope="col">Address</th>
+      <th class='text-center' scope="col">Representative</th>
+      <th class='text-center' scope="col">Email</th>
+      <th class='text-center' scope="col">Number</th>
+      <th class='text-center' scope="col">Date</th>
+      <th class='text-center' scope="col">MoU</th>
+      <th class='text-center' scope="col">LOI</th>
+      <th class='text-center' scope="col">Signatory</th>
+      <th class='text-center' scope="col">Designation</th>
+      <th class='text-center' scope="col">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if epmd_data %}
+      {% for epmd in suc %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'epmd' epmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ epmd.province }}</td>
+          <td class='text-center'>{{ epmd.category }}</td>
+          <td class='text-center'>{{ epmd.name }}</td>
+          <td class='text-center'>{{ epmd.address }} hours</td>
+          <td class='text-center'>{{ epmd.representative }}</td>
+          <td class='text-center'>{{ epmd.email }}</td>
+          <td class='text-center'>{{ epmd.number }}</td>
+          <td class='text-center'>{{ epmd.date }}</td>
+          <td class='text-center'>{{ epmd.mou }}</td>
+          <td class='text-center'>{{ epmd.loi }}</td>
+          <td class='text-center'>{{ epmd.signatory }}</td>
+          <td class='text-center'>{{ epmd.designation }}</td>
+          <td class='text-center'>{{ epmd.remarks }}</td>
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
+</table>
+<h2>Training Institution</h2>
+<table class="table table-striped" id="epmdtable5">
+  <thead>
+    <tr>
+      <th class='text-center' scope="col">Id</th>
+      <th class='text-center' scope="col">Province</th>
+      <th class='text-center' scope="col">Category</th>
+      <th class='text-center' scope="col">Name</th>
+      <th class='text-center' scope="col">Address</th>
+      <th class='text-center' scope="col">Representative</th>
+      <th class='text-center' scope="col">Email</th>
+      <th class='text-center' scope="col">Number</th>
+      <th class='text-center' scope="col">Date</th>
+      <th class='text-center' scope="col">MoU</th>
+      <th class='text-center' scope="col">LOI</th>
+      <th class='text-center' scope="col">Signatory</th>
+      <th class='text-center' scope="col">Designation</th>
+      <th class='text-center' scope="col">Remarks</th>
+    </tr>
+  </thead>
+  <tbody>
+  {% if epmd_data %}
+      {% for epmd in training %}
+      <tr>
+          <td class='text-center'><a href="{% url 'record' 'epmd' epmd.id|encode_id%}">{{ forloop.counter }}</a></td>
+          <td class='text-center'>{{ epmd.province }}</td>
+          <td class='text-center'>{{ epmd.category }}</td>
+          <td class='text-center'>{{ epmd.name }}</td>
+          <td class='text-center'>{{ epmd.address }} hours</td>
+          <td class='text-center'>{{ epmd.representative }}</td>
+          <td class='text-center'>{{ epmd.email }}</td>
+          <td class='text-center'>{{ epmd.number }}</td>
+          <td class='text-center'>{{ epmd.date }}</td>
+          <td class='text-center'>{{ epmd.mou }}</td>
+          <td class='text-center'>{{ epmd.loi }}</td>
+          <td class='text-center'>{{ epmd.signatory }}</td>
+          <td class='text-center'>{{ epmd.designation }}</td>
+          <td class='text-center'>{{ epmd.remarks }}</td>
+      </tr>
+      {% endfor %}
+  {% endif %}
+  </tbody>
 </table>
 </div>
 <a class="btn btn-success mt-4"  href="{% url 'form' 'epmd' 'add'%}" role="button">Add new Partnership Data</a>
@@ -544,7 +722,12 @@
   let table6 = new DataTable('#tmdtable3');
   let table7 = new DataTable('#tmdtable4');
   let table8 = new DataTable('#tmdtable5');
-  let table9 = new DataTable('#epmdtable');
+  let table9 = new DataTable('#epmdtable1');
+  let table10 = new DataTable('#epmdtable2');
+  let table11 = new DataTable('#epmdtable3');
+  let table12 = new DataTable('#epmdtable4');
+  let table13 = new DataTable('#epmdtable5');
+
 
     function selectTable() {
         var selectedTable = document.getElementById("tableSelect").value;
